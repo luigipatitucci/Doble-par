@@ -1,0 +1,39 @@
+.works {
+  padding: var(--spacing-4xl) 0;
+  background: var(--color-bg-primary);
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+/* Hacer que los videos verticales ocupen menos espacio */
+.grid > :nth-child(2n) {
+  grid-column: span 1;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .works {
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}

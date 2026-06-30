@@ -1,0 +1,61 @@
+Estoy desarrollando el sitio web de DOBLEPAR, una agencia creativa/audiovisual que genera piezas visuales y videos con inteligencia artificial.
+
+Concepto principal de marca:
+“Convertimos ideas en universos coexistentes”.
+
+Racional:
+DOBLEPAR entiende las marcas como ecosistemas capaces de expandirse a través de imágenes, experiencias, espacios, entretenimiento, narrativas, tecnología y comunidad. No construye piezas aisladas: diseña conexiones. La web debe representar esa idea de universos visuales que conviven.
+
+Manifiesto:
+La marca trabaja cruzando disciplinas, formatos y lenguajes: audiovisual, música, experiencias, narrativa, tecnología, arte y entretenimiento. La web no debe sentirse como una página corporativa tradicional, sino como una experiencia visual dinámica, moderna e inmersiva.
+
+Referencias visuales:
+
+* xloopfilms.com
+* junglavisual.com/latest-works
+
+Objetivo del sitio:
+Crear una web institucional y portfolio audiovisual para mostrar proyectos, videos y la identidad de DOBLEPAR.
+
+Estructura:
+
+1. Home
+2. Trabajos
+3. Nosotros
+4. Hablemos
+
+Estilo visual:
+
+* Premium, audiovisual, creativo, cinematográfico.
+* Mucho protagonismo de videos.
+* Animaciones suaves.
+* Transiciones modernas.
+* Diseño oscuro o neutro, con alto contraste.
+* Corrección visual general para unificar videos con distintos colores.
+* Sensación de agencia creativa contemporánea.
+* No usar estética corporativa tradicional.
+
+Contenido audiovisual:
+
+* Habrá videos horizontales y verticales.
+* La web debe contemplar ambos formatos.
+* Los videos deben cargarse de forma optimizada.
+* Usar placeholders o mock data mientras no estén los archivos definitivos.
+
+Stack:
+
+* Next.js
+* TypeScript
+* CSS Modules
+* Sin Tailwind
+* Componentes reutilizables
+* Código limpio y escalable
+* Pensado para deploy en Vercel
+
+Prioridades:
+
+* Performance.
+* Responsive mobile/tablet/desktop.
+* Buena experiencia visual.
+* Arquitectura ordenada.
+* Fácil reemplazo de contenido.

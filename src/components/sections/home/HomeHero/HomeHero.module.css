@@ -1,0 +1,699 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: visible;
+  padding: 0;
+  background: var(--color-bg-primary);
+  
+  /* Sistema de espaciado editorial */
+  --hero-margin-x: 5vw;
+  --hero-gap: 24px;
+  --hero-safe-top: 120px;
+  --hero-column-left: 58vw;
+  --hero-column-right: calc(100vw - var(--hero-margin-x) * 2 - var(--hero-column-left) - var(--hero-gap));
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.98) 0%,
+    rgba(15, 15, 15, 0.95) 100%
+  );
+  z-index: 0;
+}
+
+/* Composición editorial estructurada con grid preciso */
+.videoGrid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.videoGrid::before {
+  content: 'DOBLEPAR — 2026';
+  position: absolute;
+  top: 3vh;
+  right: 4vw;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.08);
+  font-family: monospace;
+  z-index: 1;
+  opacity: 0;
+  animation: revealDetail 0.6s ease-out 1.3s forwards;
+}
+
+.videoGrid::after {
+  content: 'IDEAS EN PROCESO';
+  position: absolute;
+  bottom: 3vh;
+  right: 4vw;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.06);
+  font-family: monospace;
+  z-index: 1;
+  opacity: 0;
+  animation: revealDetail 0.6s ease-out 1.4s forwards;
+}
+
+/* BLOQUE A - Video principal dominante - 60% del ancho */
+.videoBlock1 {
+  position: absolute;
+  top: var(--hero-safe-top);
+  left: var(--hero-margin-x);
+  width: var(--hero-column-left);
+  height: 55vh;
+  overflow: visible;
+  border-radius: var(--border-radius-lg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.1s linear;
+  animation: birthOfIdea 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  z-index: 5;
+}
+
+.videoBlock1::before {
+  content: 'FRAME 01';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.15);
+  font-family: monospace;
+  z-index: 10;
+  opacity: 0;
+  animation: revealDetail 0.5s ease-out 1.3s forwards;
+}
+
+.videoBlock1::after {
+  content: '+';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  opacity: 0;
+  animation: revealDetail 0.5s ease-out 1.35s forwards;
+}
+
+.videoBlock1:hover {
+  transform: scale(1.008) translateY(-4px);
+  filter: brightness(1.03);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+  z-index: 15;
+}
+
+.videoBlock1 .video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+}
+
+/* BLOQUE B - Video vertical secundario - Columna derecha */
+.videoBlock2 {
+  position: absolute;
+  top: var(--hero-safe-top);
+  left: calc(var(--hero-margin-x) + var(--hero-column-left) + var(--hero-gap));
+  width: var(--hero-column-right);
+  height: 28vh;
+  overflow: visible;
+  border-radius: var(--border-radius-lg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.1s linear;
+  animation: slideIntoPlace 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+  opacity: 0;
+  will-change: transform, opacity;
+  z-index: 4;
+}
+
+.videoBlock2::before {
+  content: 'SCENE 02';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.15);
+  font-family: monospace;
+  z-index: 10;
+  opacity: 0;
+  animation: revealDetail 0.5s ease-out 1.4s forwards;
+}
+
+.videoBlock2 .video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+}
+
+.videoBlock2:hover {
+  transform: scale(1.008) translateY(-4px);
+  filter: brightness(1.03);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+  z-index: 15;
+}
+
+/* BLOQUE C - Video horizontal - Debajo de B, mismo ancho */
+.videoBlock3 {
+  position: absolute;
+  top: calc(var(--hero-safe-top) + 28vh + var(--hero-gap));
+  left: calc(var(--hero-margin-x) + var(--hero-column-left) + var(--hero-gap));
+  width: var(--hero-column-right);
+  height: 22vh;
+  overflow: visible;
+  border-radius: var(--border-radius-lg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.1s linear;
+  animation: slideIntoPlace 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+  opacity: 0;
+  will-change: transform, opacity;
+  z-index: 3;
+}
+
+.videoBlock3::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 40px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 10;
+  opacity: 0;
+  animation: revealDetail 0.5s ease-out 1.5s forwards;
+}
+
+.videoBlock3 .video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+}
+
+.videoBlock3:hover {
+  transform: scale(1.008) translateY(-4px);
+  filter: brightness(1.03);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+  z-index: 15;
+}
+
+/* BLOQUE D - Video vertical pequeño - Debajo de C, izquierda */
+.videoBlock4 {
+  position: absolute;
+  top: calc(var(--hero-safe-top) + 28vh + var(--hero-gap) + 22vh + var(--hero-gap));
+  left: calc(var(--hero-margin-x) + var(--hero-column-left) + var(--hero-gap));
+  width: calc((var(--hero-column-right) - var(--hero-gap)) / 2);
+  height: 20vh;
+  overflow: visible;
+  border-radius: var(--border-radius-lg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.1s linear;
+  animation: fadeInScale 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+  opacity: 0;
+  will-change: transform, opacity;
+  z-index: 6;
+}
+
+.videoBlock4::before {
+  content: 'TAKE 04';
+  position: absolute;
+  top: -18px;
+  right: 0;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.12);
+  font-family: monospace;
+  z-index: 10;
+  opacity: 0;
+  animation: revealDetail 0.5s ease-out 1.6s forwards;
+}
+
+.videoBlock4 .video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+}
+
+.videoBlock4:hover {
+  transform: scale(1.008) translateY(-4px);
+  filter: brightness(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  z-index: 15;
+}
+
+/* BLOQUE E - Video vertical pequeño - A la derecha de D */
+.videoBlock5 {
+  position: absolute;
+  top: calc(var(--hero-safe-top) + 28vh + var(--hero-gap) + 22vh + var(--hero-gap));
+  left: calc(var(--hero-margin-x) + var(--hero-column-left) + var(--hero-gap) + (var(--hero-column-right) - var(--hero-gap)) / 2 + var(--hero-gap));
+  width: calc((var(--hero-column-right) - var(--hero-gap)) / 2);
+  height: 20vh;
+  overflow: visible;
+  border-radius: var(--border-radius-lg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.1s linear;
+  animation: fadeInScale 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+  opacity: 0;
+  will-change: transform, opacity;
+  z-index: 7;
+}
+
+.videoBlock5::after {
+  content: '+';
+  position: absolute;
+  bottom: -8px;
+  left: -8px;
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.08);
+  z-index: 10;
+  opacity: 0;
+  animation: revealDetail 0.5s ease-out 1.65s forwards;
+}
+
+.videoBlock5 .video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+}
+
+.videoBlock5:hover {
+  transform: scale(1.008) translateY(-4px);
+  filter: brightness(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  z-index: 15;
+}
+
+/* Bloque 6 - Oculto en composición editorial de 5 bloques */
+.videoBlock6 {
+  display: none;
+}
+
+
+
+/* ===================================
+   ANIMACIONES NARRATIVAS DE ENTRADA
+   Secuencia: El universo creativo se construye progresivamente
+   ===================================*/
+
+/* 1. Nacimiento de la primera idea - Video principal */
+@keyframes birthOfIdea {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+/* 2. Las piezas encuentran su lugar - Videos secundarios */
+@keyframes slideIntoPlace {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 3. Aparición suave - Videos pequeños */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 4. Revelación de microdetalles - Etiquetas, cruces, coordenadas */
+@keyframes revealDetail {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 5. Revelación de líneas decorativas */
+@keyframes revealLine {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* 6. La conclusión del universo - El claim cobra sentido */
+@keyframes conclusionAppears {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 7. Invitación discreta - El CTA */
+@keyframes invitation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.videoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0) 0%,
+    rgba(10, 10, 10, 0) 60%,
+    rgba(10, 10, 10, 0.25) 100%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Labels en videos - microdetalles sutiles */
+.label {
+  position: absolute;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  font-size: 10px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  padding: 5px 9px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+  font-family: monospace;
+}
+
+.videoBlock1:hover .label,
+.videoBlock2:hover .label,
+.videoBlock3:hover .label,
+.videoBlock4:hover .label,
+.videoBlock5:hover .label,
+.videoBlock6:hover .label {
+  opacity: 0.8;
+}
+
+/* Claim - Espacio inferior izquierdo, alineado con bloque principal */
+.claimContainer {
+  position: absolute;
+  bottom: 8vh;
+  left: var(--hero-margin-x);
+  z-index: 8;
+  max-width: 480px;
+  animation: conclusionAppears 0.7s cubic-bezier(0.4, 0, 0.2, 1) 1.6s forwards;
+  opacity: 0;
+}
+
+.claimContainer::before {
+  content: '';
+  position: absolute;
+  top: -25px;
+  left: 0;
+  width: 30px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: revealLine 0.5s ease-out 1.8s forwards;
+}
+
+.claim {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+
+.highlight {
+  display: inline-block;
+  background: linear-gradient(
+    120deg,
+    var(--color-text-primary) 0%,
+    rgba(255, 255, 255, 0.7) 50%,
+    var(--color-text-primary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 8s ease-in-out infinite;
+  background-size: 200% auto;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  padding-bottom: 2px;
+  animation: invitation 0.6s cubic-bezier(0.4, 0, 0.2, 1) 2.2s forwards;
+  opacity: 0;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-text-primary);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.link:hover {
+  opacity: 0.8;
+  transform: translateX(4px);
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 1440px) {
+  .hero {
+    --hero-column-left: 56vw;
+  }
+
+  .videoBlock1 {
+    height: 52vh;
+  }
+
+  .videoBlock2 {
+    height: 26vh;
+  }
+
+  .videoBlock3 {
+    height: 20vh;
+  }
+
+  .videoBlock4,
+  .videoBlock5 {
+    height: 18vh;
+  }
+
+  .claimContainer {
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    --hero-margin-x: 4vw;
+    --hero-column-left: 55vw;
+  }
+
+  .videoBlock1 {
+    height: 48vh;
+  }
+
+  .videoBlock2 {
+    height: 24vh;
+  }
+
+  .videoBlock3 {
+    height: 18vh;
+  }
+
+  .videoBlock4,
+  .videoBlock5 {
+    height: 16vh;
+  }
+
+  .claimContainer {
+    bottom: 6vh;
+    max-width: 400px;
+  }
+
+  .videoGrid::before,
+  .videoGrid::after {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100vh;
+    overflow: hidden;
+    --hero-margin-x: 5vw;
+    --hero-gap: 16px;
+    --hero-safe-top: 100px;
+  }
+
+  /* En mobile, layout vertical simple */
+  .videoBlock1 {
+    width: 90vw;
+    height: 35vh;
+    animation: birthOfIdea 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .videoBlock1::before,
+  .videoBlock1::after {
+    display: none;
+  }
+
+  .videoBlock2 {
+    top: calc(var(--hero-safe-top) + 35vh + var(--hero-gap));
+    left: var(--hero-margin-x);
+    width: 90vw;
+    height: 26vh;
+    animation: slideIntoPlace 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.15s forwards;
+  }
+
+  .videoBlock2::before {
+    display: none;
+  }
+
+  /* Ocultar bloques adicionales en mobile */
+  .videoBlock3,
+  .videoBlock4,
+  .videoBlock5 {
+    display: none;
+  }
+
+  /* Desactivar hover effects en mobile */
+  .videoBlock1:hover,
+  .videoBlock2:hover {
+    transform: none;
+    filter: none;
+    box-shadow: none;
+  }
+
+  /* Desactivar parallax en mobile */
+  .videoBlock1[data-parallax],
+  .videoBlock2[data-parallax] {
+    transform: none !important;
+  }
+
+  .claimContainer {
+    bottom: 4vh;
+    left: var(--hero-margin-x);
+    max-width: 90vw;
+    animation: conclusionAppears 0.6s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+  }
+
+  .claimContainer::before {
+    display: none;
+  }
+
+  .link {
+    animation: invitation 0.5s cubic-bezier(0.4, 0, 0.2, 1) 1.6s forwards;
+  }
+
+  .claim {
+    font-size: clamp(1.25rem, 5vw, 1.75rem);
+  }
+
+  .label {
+    font-size: 8px;
+    padding: 4px 7px;
+    letter-spacing: 0.2em;
+  }
+
+  .videoGrid::before,
+  .videoGrid::after {
+    display: none;
+  }
+}

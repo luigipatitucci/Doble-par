@@ -1,0 +1,145 @@
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  background: var(--color-bg-secondary);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: scale(1.005) translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  overflow: hidden;
+  background: var(--color-bg-tertiary);
+  min-height: 0;
+}
+
+/* Cuando el card está en un grid con altura definida, videoWrapper ocupa toda la altura */
+/* Cuando no, usa el aspect-ratio */
+.horizontal .videoWrapper {
+  aspect-ratio: 16 / 9;
+}
+
+.vertical .videoWrapper {
+  aspect-ratio: 9 / 16;
+}
+
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+  z-index: 1;
+}
+
+.video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: var(--spacing-lg);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.overlay.visible {
+  opacity: 1;
+}
+
+.content {
+  width: 100%;
+}
+
+.category {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-primary);
+}
+
+.client {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .card:hover {
+    /* Desactivar hover en mobile */
+    transform: none;
+  }
+
+  .overlay {
+    padding: var(--spacing-md);
+  }
+
+  .title {
+    font-size: var(--font-size-xl);
+  }
+
+  /* En mobile, mostrar siempre el overlay */
+  .overlay {
+    opacity: 0.95;
+  }
+  
+  /* Asegurar que videoWrapper ocupe todo el espacio en mobile */
+  .videoWrapper {
+    height: 100%;
+    min-height: 300px;
+  }
+}
