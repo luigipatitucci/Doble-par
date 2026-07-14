@@ -1,5 +1,5 @@
 .philosophy {
-  padding: var(--spacing-4xl) 0;
+  padding: var(--section-padding) 0;
   background: var(--color-bg-primary);
 }
 
@@ -13,7 +13,7 @@
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   text-align: center;
-  margin-bottom: var(--spacing-3xl);
+  margin-bottom: var(--section-gap);
   color: var(--color-text-primary);
 }
 

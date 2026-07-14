@@ -64,10 +64,10 @@ export const works: Work[] = [
   {
     id: '6',
     slug: 'content-1',
-    title: 'Content Series',
-    client: 'Digital',
+    title: 'Branded Content',
+    client: 'Digital Series',
     category: 'Audiovisual',
-    description: 'Vertical content piece',
+    description: 'Vertical Campaign',
     video: '/videos/IMG_2327.MP4',
     orientation: 'portrait',
     year: '2026',
@@ -100,7 +100,7 @@ export const works: Work[] = [
   {
     id: '9',
     slug: 'content-3',
-    title: 'Digital Content',
+    title: 'Commercials',
     client: 'Studio',
     category: 'Audiovisual',
     description: 'Horizontal storytelling',

@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: var(--z-navbar);
+  z-index: 10000;
   background: transparent;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   padding: var(--spacing-xl) 0;
@@ -25,6 +25,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 10001;
 }
 
 .logo {
@@ -128,15 +130,16 @@
 .mobileMenu {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(10, 10, 10, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  inset: 0;
+  z-index: 9999;
+  background: #080808;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   padding: 100px var(--container-padding) var(--spacing-2xl);
   animation: fadeIn 0.3s ease-out;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes fadeIn {

@@ -51,7 +51,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ work, priority = false }) 
         <video
           ref={videoRef}
           className={styles.video}
-          src={work.video}
+          src={work.id === '3' ? `${work.video}#t=1` : work.video}
           {...(work.poster && { poster: work.poster })}
           loop
           muted

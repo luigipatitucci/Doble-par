@@ -1,11 +1,17 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { VideoCard } from '@/components/ui/VideoCard/VideoCard';
+import { VideoModal } from '@/components/ui/VideoModal/VideoModal';
 import { Button } from '@/components/ui/Button/Button';
 import { works } from '@/data/works';
 import styles from './FeaturedWorks.module.css';
 
 export const FeaturedWorks: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
   // Mostrar 4 trabajos destacados con mix de orientaciones
   const featuredWorks = works.slice(0, 4);
 
@@ -28,7 +34,16 @@ export const FeaturedWorks: React.FC = () => {
 
         <div className={styles.grid}>
           {featuredWorks.map((work, index) => (
-            <div key={work.id} className={styles[`gridItem${index + 1}`]}>
+            <div 
+              key={work.id} 
+              className={styles[`gridItem${index + 1}`]}
+              onClick={() => {
+                const workIndex = works.findIndex(w => w.id === work.id);
+                setCurrentIndex(workIndex !== -1 ? workIndex : 0);
+                setIsModalOpen(true);
+              }}
+              style={{ cursor: 'pointer' }}
+            >
               <VideoCard work={work} priority={index === 0} />
             </div>
           ))}
@@ -40,6 +55,15 @@ export const FeaturedWorks: React.FC = () => {
           </Button>
         </div>
       </div>
+
+      {/* Modal de video */}
+      <VideoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        works={works}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+      />
     </section>
   );
 };

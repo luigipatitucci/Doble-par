@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 140px 5vw 160px;
+  padding: var(--section-padding) 5vw;
   border-top: 1px solid var(--color-border-subtle);
   overflow: hidden;
 }
@@ -137,7 +137,7 @@
 @media (max-width: 1024px) {
   .homeContact {
     min-height: 70svh;
-    padding: 100px 4vw 120px;
+    padding: var(--section-padding-small) 4vw;
   }
 
   .backgroundShape {
@@ -174,7 +174,7 @@
 @media (max-width: 768px) {
   .homeContact {
     min-height: 65svh;
-    padding: 80px 6vw 100px;
+    padding: var(--section-padding-small) 6vw;
   }
 
   .backgroundShape {
@@ -220,7 +220,7 @@
 @media (max-width: 480px) {
   .homeContact {
     min-height: 60svh;
-    padding: 60px 20px 80px;
+    padding: var(--section-padding-small) 20px;
   }
 
   .backgroundShape {

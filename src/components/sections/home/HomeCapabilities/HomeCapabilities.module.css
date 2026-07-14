@@ -2,7 +2,7 @@
 .capabilities {
   position: relative;
   background: var(--color-bg);
-  padding: 140px 5vw 160px;
+  padding: var(--section-padding) 5vw;
 }
 
 /* Container */
@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
-  margin-bottom: clamp(4rem, 8vw, 8rem);
+  margin-bottom: var(--section-gap);
 }
 
 /* Label */
@@ -131,7 +131,7 @@
 /* Responsive - Tablet */
 @media (max-width: 1024px) {
   .capabilities {
-    padding: 100px 4vw 120px;
+    padding: var(--section-padding-small) 4vw;
   }
 
   .header {
@@ -169,7 +169,7 @@
 /* Responsive - Mobile */
 @media (max-width: 768px) {
   .capabilities {
-    padding: 80px 6vw 100px;
+    padding: var(--section-padding-small) 6vw;
   }
 
   .header {
@@ -230,7 +230,7 @@
 /* Mobile pequeño */
 @media (max-width: 480px) {
   .capabilities {
-    padding: 60px 5vw 80px;
+    padding: var(--section-padding-small) 5vw;
   }
 
   .header {

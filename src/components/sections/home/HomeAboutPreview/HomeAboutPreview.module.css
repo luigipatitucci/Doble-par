@@ -1,5 +1,5 @@
 .aboutPreview {
-  padding: var(--spacing-4xl) 0;
+  padding: var(--section-padding) 0;
   background: var(--color-bg-secondary);
   position: relative;
   overflow: hidden;

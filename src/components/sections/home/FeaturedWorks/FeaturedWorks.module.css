@@ -1,5 +1,5 @@
 .featured {
-  padding: var(--spacing-4xl) 0;
+  padding: var(--section-padding) 0;
   background: var(--color-bg-primary);
   position: relative;
   
@@ -16,7 +16,7 @@
 
 .header {
   max-width: 900px;
-  margin: 0 auto var(--spacing-4xl);
+  margin: 0 auto var(--section-gap);
   text-align: center;
 }
 
@@ -57,7 +57,7 @@
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(2, 400px);
   gap: var(--featured-gap);
-  margin-bottom: var(--spacing-4xl);
+  margin-bottom: var(--section-gap);
 }
 
 /* Composición editorial estructurada - 60/40 split en primera fila */

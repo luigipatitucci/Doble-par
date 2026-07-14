@@ -6,7 +6,7 @@ export const PhilosophySection: React.FC = () => {
     {
       title: 'Film & Visual',
       description:
-        'We create cinematic visual pieces with artificial intelligence, exploring new forms of visual narrative.',
+        'We create cinematic visual work through AI and live-action production, exploring new forms of storytelling across physical and digital worlds.',
     },
     {
       title: 'Experiences',

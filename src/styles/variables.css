@@ -75,6 +75,11 @@
   --spacing-3xl: 6rem;     /* 96px */
   --spacing-4xl: 8rem;     /* 128px */
   
+  /* Espaciado vertical de secciones */
+  --section-padding: clamp(80px, 10vw, 120px);
+  --section-padding-small: clamp(60px, 8vw, 90px);
+  --section-gap: clamp(32px, 5vw, 64px);
+  
   /* Container */
   --container-max-width: 1440px;
   --container-padding: var(--spacing-lg);

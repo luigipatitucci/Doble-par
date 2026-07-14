@@ -5,7 +5,7 @@
 .selectedWork {
   position: relative;
   background: #080808;
-  padding: 140px 5vw 160px;
+  padding: var(--section-padding) 5vw;
 }
 
 /* Container */
@@ -22,8 +22,8 @@
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(3rem, 6vw, 8rem);
-  margin-bottom: clamp(4rem, 7vw, 7rem);
+  gap: var(--section-gap);
+  margin-bottom: var(--section-gap);
   align-items: end;
 }
 
@@ -159,7 +159,7 @@
 
 @media (max-width: 1024px) {
   .selectedWork {
-    padding: 100px 4vw 120px;
+    padding: var(--section-padding-small) 4vw;
   }
 
   .header {
@@ -200,7 +200,7 @@
 
 @media (max-width: 768px) {
   .selectedWork {
-    padding: 80px 6vw 100px;
+    padding: var(--section-padding-small) 6vw;
   }
 
   .grid {

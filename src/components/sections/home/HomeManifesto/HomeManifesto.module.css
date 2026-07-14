@@ -2,7 +2,7 @@
 .manifesto {
   position: relative;
   background: #080808;
-  padding: clamp(4rem, 8vw, 8rem) 0;
+  padding: var(--section-padding-small) 0;
 }
 
 /* Container principal */
@@ -16,7 +16,7 @@
   max-width: 1000px;
   display: flex;
   flex-direction: column;
-  gap: clamp(2.5rem, 5vw, 4rem);
+  gap: var(--section-gap);
 }
 
 /* Intro - texto normal */
@@ -65,7 +65,7 @@
 /* Responsive - Mobile */
 @media (max-width: 768px) {
   .manifesto {
-    padding: clamp(3rem, 6vw, 6rem) 0;
+    padding: var(--section-padding-small) 0;
   }
 
   .container {

@@ -71,8 +71,7 @@ export const Footer: React.FC = () => {
           <div className={styles.brand}>
             <h3 className={styles.logo}>DOBLEPAR</h3>
             <p className={styles.description}>
-              Creative and audiovisual studio focused on building visual universes 
-              through narrative, direction and artificial intelligence.
+              Creative and audiovisual studio building distinctive visual universes through storytelling, creative direction, AI, and live-action production—across both physical and digital experiences.
             </p>
           </div>
 

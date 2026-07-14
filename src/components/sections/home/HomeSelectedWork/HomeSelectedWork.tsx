@@ -1,13 +1,16 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { works } from '@/data/works';
 import { ProjectCard } from '@/components/ui/ProjectCard/ProjectCard';
+import { VideoModal } from '@/components/ui/VideoModal/VideoModal';
 import styles from './HomeSelectedWork.module.css';
 
 export const HomeSelectedWork: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -193,6 +196,11 @@ export const HomeSelectedWork: React.FC = () => {
                 work={work} 
                 priority={index === 0} 
                 featured={index === 0 || work.featured}
+                onClick={() => {
+                  const workIndex = works.findIndex(w => w.id === work.id);
+                  setCurrentIndex(workIndex !== -1 ? workIndex : 0);
+                  setIsModalOpen(true);
+                }}
               />
             </div>
           ))}
@@ -220,6 +228,15 @@ export const HomeSelectedWork: React.FC = () => {
           </Link>
         </div>
       </div>
+
+      {/* Modal de video */}
+      <VideoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        works={works}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+      />
     </section>
   );
 };

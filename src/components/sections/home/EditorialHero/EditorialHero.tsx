@@ -178,7 +178,7 @@ export const EditorialHero: React.FC = () => {
       {/* Contenido */}
       <div ref={contentRef} className={styles.content}>
         <span ref={labelRef} className={styles.label}>
-          CREATIVE STUDIO — VISUAL UNIVERSE
+          CREATIVE STUDIO
         </span>
 
         <h1 className={styles.claim}>
@@ -192,11 +192,10 @@ export const EditorialHero: React.FC = () => {
         </h1>
 
         <p ref={descriptionRef} className={styles.description}>
-          DOBLEPAR is a creative and audiovisual studio developing concepts,
-          direction and visual content through artificial intelligence.
+          DOBLEPAR is a creative and audiovisual studio building distinctive visual universes through storytelling, creative direction, AI, and live-action production—across both physical and digital experiences.
         </p>
 
-        <a ref={ctaRef} href="#trabajos" className={styles.cta}>
+        <a ref={ctaRef} href="#manifesto" className={styles.cta}>
           <span>Explore</span>
           <svg
             width="16"

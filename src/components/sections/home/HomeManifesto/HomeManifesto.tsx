@@ -59,7 +59,7 @@ export const HomeManifesto: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.manifesto}>
+    <section id="manifesto" ref={sectionRef} className={styles.manifesto}>
       <div className={styles.container}>
         <div className={styles.content}>
           {/* Introducción */}
@@ -69,7 +69,7 @@ export const HomeManifesto: React.FC = () => {
 
           {/* Statement principal */}
           <h2 ref={statementRef} className={styles.statement}>
-            We don't build isolated pieces — <span className={styles.highlight}>we design connections, generated with artificial intelligence.</span>
+            We don’t create isolated pieces — <span className={styles.highlight}>we build connected visual worlds through AI, live-action production, and physical and digital experiences.</span>
           </h2>
         </div>
       </div>

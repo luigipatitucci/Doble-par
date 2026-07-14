@@ -7,9 +7,7 @@ export const WorkHero: React.FC = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>Work</h1>
         <p className={styles.subtitle}>
-          Explore our audiovisual projects created with artificial intelligence.
-          <br />
-          Each piece is a unique universe of creativity and technology.
+          Explore our audiovisual projects, combining AI-powered production with live-action filmmaking.
         </p>
       </div>
     </section>
