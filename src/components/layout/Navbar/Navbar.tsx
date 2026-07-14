@@ -6,13 +6,13 @@ import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
 const navigation = [
-  { name: 'Trabajos', href: '/trabajos' },
-  { name: 'Nosotros', href: '/nosotros' },
-  { name: 'Hablemos', href: '/hablemos' },
+  { name: 'Work', href: '/trabajos' },
+  { name: 'Studio', href: '/nosotros' },
+  { name: "Let's Talk", href: '/hablemos' },
 ];
 
 const mobileNavigation = [
-  { name: 'Inicio', href: '/' },
+  { name: 'Home', href: '/' },
   ...navigation,
 ];
 

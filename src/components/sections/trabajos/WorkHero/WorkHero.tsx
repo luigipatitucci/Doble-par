@@ -5,11 +5,11 @@ export const WorkHero: React.FC = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Trabajos</h1>
+        <h1 className={styles.title}>Work</h1>
         <p className={styles.subtitle}>
-          Explorá nuestros proyectos audiovisuales creados con inteligencia artificial.
+          Explore our audiovisual projects created with artificial intelligence.
           <br />
-          Cada pieza es un universo único de creatividad y tecnología.
+          Each piece is a unique universe of creativity and technology.
         </p>
       </div>
     </section>

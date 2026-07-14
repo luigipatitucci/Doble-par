@@ -4,9 +4,9 @@ import { ContactForm } from '@/components/sections/hablemos/ContactForm/ContactF
 import { ContactInfo } from '@/components/sections/hablemos/ContactInfo/ContactInfo';
 
 export const metadata = {
-  title: 'Hablemos | DOBLEPAR',
+  title: "Let's Talk | DOBLEPAR",
   description:
-    '¿Tenés una idea? Trabajemos juntos para convertirla en realidad. Contactanos para dar vida a tu próximo proyecto.',
+    "Got an idea? Let's work together to make it real. Contact us to bring your next project to life.",
 };
 
 export default function HablemosPage() {

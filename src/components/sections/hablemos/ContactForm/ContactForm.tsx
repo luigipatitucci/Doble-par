@@ -28,12 +28,12 @@ export const ContactForm: React.FC = () => {
     <section className={styles.formSection}>
       <div className={styles.container}>
         <div className={styles.formWrapper}>
-          <h2 className={styles.title}>Contanos tu proyecto</h2>
+          <h2 className={styles.title}>Tell us about your project</h2>
           
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.field}>
               <label htmlFor="name" className={styles.label}>
-                Nombre
+                Name
               </label>
               <input
                 type="text"
@@ -63,7 +63,7 @@ export const ContactForm: React.FC = () => {
 
             <div className={styles.field}>
               <label htmlFor="message" className={styles.label}>
-                Mensaje
+                Message
               </label>
               <textarea
                 id="message"
@@ -77,7 +77,7 @@ export const ContactForm: React.FC = () => {
             </div>
 
             <Button type="submit" variant="primary" size="large">
-              Enviar Mensaje
+              Send Message
             </Button>
           </form>
         </div>

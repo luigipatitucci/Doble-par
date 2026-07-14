@@ -1,15 +1,17 @@
-export type VideoOrientation = 'horizontal' | 'vertical';
+export type WorkOrientation = 'landscape' | 'portrait' | 'square';
 
 export type WorkCategory = 'Audiovisual' | 'Branding' | 'Experiencias' | 'IA' | 'Narrativa';
 
 export interface Work {
   id: string;
+  slug: string;
   title: string;
   client: string;
   category: WorkCategory;
   description: string;
-  videoUrl: string;
-  thumbnailUrl?: string;
-  orientation: VideoOrientation;
-  year: number;
+  video: string;
+  poster?: string;
+  orientation: WorkOrientation;
+  year: string;
+  featured: boolean;
 }

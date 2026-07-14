@@ -4,31 +4,31 @@ import styles from './PhilosophySection.module.css';
 export const PhilosophySection: React.FC = () => {
   const philosophies = [
     {
-      title: 'Audiovisual',
+      title: 'Film & Visual',
       description:
-        'Creamos piezas visuales cinematográficas con inteligencia artificial, explorando nuevas formas de narrativa visual.',
+        'We create cinematic visual pieces with artificial intelligence, exploring new forms of visual narrative.',
     },
     {
-      title: 'Experiencias',
+      title: 'Experiences',
       description:
-        'Diseñamos activaciones de marca y espacios inmersivos que conectan con las audiencias de manera memorable.',
+        'We design brand activations and immersive spaces that connect with audiences in memorable ways.',
     },
     {
-      title: 'Narrativa',
+      title: 'Narrative',
       description:
-        'Construimos universos narrativos coherentes y expandibles que trascienden plataformas y formatos.',
+        'We build coherent and expandable narrative universes that transcend platforms and formats.',
     },
     {
-      title: 'Tecnología',
+      title: 'Technology',
       description:
-        'Utilizamos IA y herramientas de vanguardia para innovar constantemente en nuestros procesos creativos.',
+        'We use AI and cutting-edge tools to constantly innovate in our creative processes.',
     },
   ];
 
   return (
     <section className={styles.philosophy}>
       <div className={styles.container}>
-        <h2 className={styles.title}>Cómo Trabajamos</h2>
+        <h2 className={styles.title}>How We Work</h2>
         
         <div className={styles.grid}>
           {philosophies.map((item, index) => (

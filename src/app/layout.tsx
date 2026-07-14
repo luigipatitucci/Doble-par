@@ -10,37 +10,37 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'DOBLEPAR | Agencia Creativa & Audiovisual',
+  title: 'DOBLEPAR | Creative & Audiovisual Studio',
   description:
-    'Convertimos ideas en universos coexistentes. Agencia creativa y audiovisual especializada en contenido visual con inteligencia artificial.',
+    'We turn ideas into coexisting universes. Creative and audiovisual studio specialized in visual content with artificial intelligence.',
   keywords: [
-    'agencia creativa',
+    'creative studio',
     'audiovisual',
-    'inteligencia artificial',
-    'IA',
-    'contenido visual',
+    'artificial intelligence',
+    'AI',
+    'visual content',
     'video',
     'branding',
-    'narrativa',
-    'experiencias',
+    'narrative',
+    'experiences',
   ],
   authors: [{ name: 'DOBLEPAR' }],
   creator: 'DOBLEPAR',
   publisher: 'DOBLEPAR',
   openGraph: {
     type: 'website',
-    locale: 'es_AR',
+    locale: 'en_US',
     url: 'https://doblepar.com',
-    title: 'DOBLEPAR | Agencia Creativa & Audiovisual',
+    title: 'DOBLEPAR | Creative & Audiovisual Studio',
     description:
-      'Convertimos ideas en universos coexistentes. Agencia creativa y audiovisual especializada en contenido visual con inteligencia artificial.',
+      'We turn ideas into coexisting universes. Creative and audiovisual studio specialized in visual content with artificial intelligence.',
     siteName: 'DOBLEPAR',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DOBLEPAR | Agencia Creativa & Audiovisual',
+    title: 'DOBLEPAR | Creative & Audiovisual Studio',
     description:
-      'Convertimos ideas en universos coexistentes. Agencia creativa y audiovisual especializada en contenido visual con inteligencia artificial.',
+      'We turn ideas into coexisting universes. Creative and audiovisual studio specialized in visual content with artificial intelligence.',
   },
   robots: {
     index: true,

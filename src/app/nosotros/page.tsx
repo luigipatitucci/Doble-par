@@ -4,9 +4,9 @@ import { ManifestoBlock } from '@/components/sections/nosotros/ManifestoBlock/Ma
 import { PhilosophySection } from '@/components/sections/nosotros/PhilosophySection/PhilosophySection';
 
 export const metadata = {
-  title: 'Nosotros | DOBLEPAR',
+  title: 'Studio | DOBLEPAR',
   description:
-    'Convertimos ideas en universos coexistentes. Conocé nuestra filosofía, manifiesto y forma de trabajo.',
+    'We turn ideas into coexisting universes. Learn about our philosophy, manifesto and way of working.',
 };
 
 export default function NosotrosPage() {

@@ -3,9 +3,9 @@ import { WorkHero } from '@/components/sections/trabajos/WorkHero/WorkHero';
 import { WorksGrid } from '@/components/sections/trabajos/WorksGrid/WorksGrid';
 
 export const metadata = {
-  title: 'Trabajos | DOBLEPAR',
+  title: 'Work | DOBLEPAR',
   description:
-    'Explora nuestros proyectos audiovisuales creados con inteligencia artificial. Universos visuales únicos para marcas y contenidos.',
+    'Explore our audiovisual projects created with artificial intelligence. Unique visual universes for brands and content.',
 };
 
 export default function TrabajosPage() {

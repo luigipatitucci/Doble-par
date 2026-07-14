@@ -51,8 +51,8 @@ export const VideoCard: React.FC<VideoCardProps> = ({ work, priority = false }) 
         <video
           ref={videoRef}
           className={styles.video}
-          src={work.videoUrl}
-          {...(work.thumbnailUrl && { poster: work.thumbnailUrl })}
+          src={work.video}
+          {...(work.poster && { poster: work.poster })}
           loop
           muted
           playsInline

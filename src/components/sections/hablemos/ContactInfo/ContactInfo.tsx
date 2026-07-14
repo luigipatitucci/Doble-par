@@ -26,12 +26,12 @@ export const ContactInfo: React.FC = () => {
           </div>
 
           <div className={styles.infoCard}>
-            <h3 className={styles.cardTitle}>Ubicación</h3>
+            <h3 className={styles.cardTitle}>Location</h3>
             <p className={styles.cardValue}>Buenos Aires, Argentina</p>
           </div>
 
           <div className={styles.infoCard}>
-            <h3 className={styles.cardTitle}>Redes Sociales</h3>
+            <h3 className={styles.cardTitle}>Social Media</h3>
             <div className={styles.socialLinks}>
               <a
                 href="#"

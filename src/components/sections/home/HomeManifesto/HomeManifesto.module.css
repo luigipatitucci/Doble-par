@@ -1,0 +1,102 @@
+/* Bloque editorial de transición - tipo Mama Hungara */
+.manifesto {
+  position: relative;
+  background: #080808;
+  padding: clamp(4rem, 8vw, 8rem) 0;
+}
+
+/* Container principal */
+.container {
+  max-width: 1520px;
+  padding: 0 5vw;
+}
+
+/* Content - layout vertical */
+.content {
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* Intro - texto normal */
+.intro {
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  margin: 0;
+  font-family: var(--font-display);
+  max-width: 1100px;
+  opacity: 0;
+}
+
+/* Statement - texto grande sin uppercase */
+.statement {
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  margin: 0;
+  font-family: var(--font-display);
+  text-transform: none;
+  max-width: 1100px;
+  opacity: 0;
+}
+
+/* Highlights en rojo */
+.highlight {
+  color: var(--color-accent);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .content {
+    gap: clamp(2rem, 4.5vw, 3.5rem);
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .manifesto {
+    padding: clamp(3rem, 6vw, 6rem) 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .content {
+    gap: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .intro {
+    line-height: var(--lh-relaxed);
+  }
+}
+
+/* Mobile pequeño */
+@media (max-width: 480px) {
+  .manifesto {
+    padding: 2.5rem 0;
+  }
+
+  .content {
+    gap: 1.5rem;
+  }
+}
+
+/* Accesibilidad - Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .intro,
+  .statement {
+    opacity: 1;
+    transform: none;
+  }
+}

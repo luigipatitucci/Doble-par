@@ -1,13 +1,17 @@
-import { HomeHero } from '@/components/sections/home/HomeHero/HomeHero';
-import { FeaturedWorks } from '@/components/sections/home/FeaturedWorks/FeaturedWorks';
-import { HomeContactCTA } from '@/components/sections/home/HomeContactCTA/HomeContactCTA';
+import { EditorialHero } from '@/components/sections/home/EditorialHero/EditorialHero';
+import { HomeManifesto } from '@/components/sections/home/HomeManifesto/HomeManifesto';
+import { HomeCapabilities } from '@/components/sections/home/HomeCapabilities/HomeCapabilities';
+import { HomeSelectedWork } from '@/components/sections/home/HomeSelectedWork/HomeSelectedWork';
+import { HomeContact } from '@/components/sections/home/HomeContact/HomeContact';
 
 export default function Home() {
   return (
     <>
-      <HomeHero />
-      <FeaturedWorks />
-      <HomeContactCTA />
+      <EditorialHero />
+      <HomeManifesto />
+      <HomeCapabilities />
+      <HomeSelectedWork />
+      <HomeContact />
     </>
   );
 }

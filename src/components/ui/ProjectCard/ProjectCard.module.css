@@ -1,0 +1,289 @@
+/* Project Card */
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #101010;
+  transition: transform 0.4s ease;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+/* Link wrapper */
+.link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Media container */
+.mediaContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Video */
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover .video {
+  transform: scale(1.02);
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+  transition: background 0.3s ease;
+  z-index: 1;
+}
+
+.card:hover .overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+}
+
+/* Play button */
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 50%;
+  color: var(--color-text-primary);
+  z-index: 2;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.card:hover .playButton {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Category label */
+.category {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+}
+
+.category span {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-primary);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--color-border-subtle);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.card:hover .category span {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Info section */
+.info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .info {
+  transform: translateY(-6px);
+}
+
+/* Title */
+.title {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.featured .title {
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+/* Description */
+.description {
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin: 0;
+  transition: opacity 0.3s ease;
+  opacity: 0.8;
+}
+
+.card:hover .description {
+  opacity: 1;
+}
+
+.featured .description {
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  max-width: 85%;
+}
+
+/* Arrow indicator */
+.arrow {
+  display: flex;
+  align-items: center;
+  color: var(--color-text-primary);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.3s ease;
+}
+
+.card:hover .arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .playButton {
+    width: 56px;
+    height: 56px;
+  }
+
+  .category {
+    top: 16px;
+    left: 16px;
+  }
+
+  .info {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+  }
+
+  .featured .title {
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .card {
+    border-radius: 0;
+  }
+
+  .playButton {
+    width: 48px;
+    height: 48px;
+  }
+
+  .category {
+    top: 12px;
+    left: 12px;
+  }
+
+  .category span {
+    padding: 4px 10px;
+    font-size: 0.688rem;
+  }
+
+  .info {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: clamp(1.1rem, 5vw, 1.35rem);
+  }
+
+  .featured .title {
+    font-size: clamp(1.25rem, 5.5vw, 1.65rem);
+  }
+
+  .description {
+    font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+  }
+
+  /* Desactivar algunos efectos hover en mobile */
+  .card:hover .video {
+    transform: scale(1);
+  }
+
+  .card:hover .info {
+    transform: translateY(0);
+  }
+
+  .arrow {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .video,
+  .overlay,
+  .playButton,
+  .category span,
+  .info,
+  .title,
+  .description,
+  .arrow {
+    transition: none;
+  }
+
+  .card:hover .video {
+    transform: none;
+  }
+
+  .card:hover .info {
+    transform: none;
+  }
+
+  .card:hover .arrow {
+    transform: none;
+  }
+}

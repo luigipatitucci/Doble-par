@@ -5,9 +5,9 @@ export const AboutHero: React.FC = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Nosotros</h1>
+        <h1 className={styles.title}>Studio</h1>
         <p className={styles.subtitle}>
-          Convertimos ideas en universos coexistentes
+          We turn ideas into coexisting universes
         </p>
       </div>
     </section>

@@ -1,30 +1,49 @@
 :root {
-  /* Colores principales */
-  --color-bg-primary: #0a0a0a;
-  --color-bg-secondary: #141414;
+  /* Sistema de colores unificado */
+  --color-bg: #080808;
+  --color-bg-primary: #080808;
+  --color-bg-secondary: #0F0F0F;
   --color-bg-tertiary: #1a1a1a;
   
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a0a0a0;
+  --color-text-primary: #F5F2EC;
+  --color-text-secondary: #9CA3AF;
   --color-text-tertiary: #707070;
   
-  --color-accent: #ffffff;
-  --color-accent-hover: #e0e0e0;
+  --color-accent: #FF5A4E;
+  --color-accent-hover: #FF6B5E;
+  
+  /* Bordes sutiles */
+  --color-border-subtle: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
+  
+  /* Aliases para compatibilidad */
+  --color-white: #F5F2EC;
+  --color-gray: #9CA3AF;
+  --color-red: #FF5A4E;
   
   /* Tipografía */
   --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   --font-display: var(--font-primary);
   
-  --font-size-xs: 0.75rem;      /* 12px */
-  --font-size-sm: 0.875rem;     /* 14px */
-  --font-size-base: 1rem;       /* 16px */
-  --font-size-lg: 1.125rem;     /* 18px */
-  --font-size-xl: 1.25rem;      /* 20px */
-  --font-size-2xl: 1.5rem;      /* 24px */
-  --font-size-3xl: 2rem;        /* 32px */
-  --font-size-4xl: 2.5rem;      /* 40px */
-  --font-size-5xl: 3rem;        /* 48px */
-  --font-size-6xl: 4rem;        /* 64px */
+  /* Sistema tipográfico editorial */
+  --fs-hero: clamp(3rem, 6vw, 5rem);
+  --fs-section-title: clamp(2rem, 3vw, 3rem);
+  --fs-subtitle: clamp(1rem, 1.2vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-cta: clamp(2rem, 3vw, 2.8rem);
+  --fs-statement: clamp(2rem, 3.5vw, 3.5rem);
+  
+  /* Escalas legacy */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 4rem;
   
   --font-weight-light: 300;
   --font-weight-normal: 400;
@@ -32,9 +51,19 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   
+  /* Line heights editorial */
+  --lh-tight: 1.1;
+  --lh-normal: 1.4;
+  --lh-relaxed: 1.6;
+  
   --line-height-tight: 1.2;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
+  
+  /* Colores globales */
+  --color-white: #F5F2EC;
+  --color-gray: #999999;
+  --color-red: #FF5A4E;
   
   /* Espaciado */
   --spacing-xs: 0.5rem;    /* 8px */

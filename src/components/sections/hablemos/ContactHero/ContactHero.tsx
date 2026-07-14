@@ -5,9 +5,9 @@ export const ContactHero: React.FC = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Hablemos</h1>
+        <h1 className={styles.title}>Let's Talk</h1>
         <p className={styles.subtitle}>
-          ¿Tenés una idea? Trabajemos juntos para convertirla en realidad.
+          Got an idea? Let’s work together to make it real.
         </p>
       </div>
     </section>
