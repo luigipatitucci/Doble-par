@@ -11,7 +11,8 @@ type FilterCategory =
   | 'Commercials'
   | 'Brand Films'
   | 'Social & Digital'
-  | 'Experiences';
+  | 'Experiences'
+  | 'Narrative Films';
 
 const FILTER_LABELS: Record<FilterCategory, string> = {
   All: 'All',
@@ -19,6 +20,7 @@ const FILTER_LABELS: Record<FilterCategory, string> = {
   'Brand Films': 'Brand Films',
   'Social & Digital': 'Social & Digital',
   Experiences: 'Experiences',
+  'Narrative Films': 'Narrative Films',
 };
 
 export const WorksGrid: React.FC = () => {

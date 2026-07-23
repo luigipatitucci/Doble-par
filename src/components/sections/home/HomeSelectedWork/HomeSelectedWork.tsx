@@ -51,9 +51,12 @@ export const HomeSelectedWork: React.FC = () => {
   // DATA
   // =========================
 
-  const featured = works.find(w => w.featured);
-  const portraits = works.filter(w => w.orientation === 'portrait' && !w.featured);
-  const landscapes = works.filter(w => w.orientation === 'landscape' && !w.featured);
+  // Only show first 11 works on home (exclude new works from carousel page)
+  const homeWorks = works.slice(0, 11);
+
+  const featured = homeWorks.find(w => w.featured);
+  const portraits = homeWorks.filter(w => w.orientation === 'portrait' && !w.featured);
+  const landscapes = homeWorks.filter(w => w.orientation === 'landscape' && !w.featured);
 
   // =========================
   // LAYOUT
@@ -125,17 +128,22 @@ export const HomeSelectedWork: React.FC = () => {
           {layout.map((item, index) => {
             const isLast = index === layout.length - 1;
 
+            // Only the video with id '3' starts at second 1
+            const workToRender = item.work?.id === '3'
+              ? { ...item.work, video: `${item.work.video}#t=1` }
+              : item.work!;
+
             return (
               <div
                 key={item.work!.id}
                 className={isLast ? styles.cardFull : getClass(item.type)}
               >
                 <ProjectCard
-                  work={item.work!}
+                  work={workToRender}
                   featured={item.type === 'featured'}
                   previewMode="hover"
                   onClick={() => {
-                    const i = works.findIndex(w => w.id === item.work!.id);
+                    const i = homeWorks.findIndex(w => w.id === item.work!.id);
                     setCurrentIndex(i);
                     setIsModalOpen(true);
                   }}
@@ -156,7 +164,7 @@ export const HomeSelectedWork: React.FC = () => {
       <VideoModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        works={works}
+        works={homeWorks}
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />

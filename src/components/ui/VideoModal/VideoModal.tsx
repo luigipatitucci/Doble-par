@@ -22,29 +22,13 @@ export const VideoModal: React.FC<VideoModalProps> = ({
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const thumbnailsRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const isInitialLoad = useRef(true);
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isTransitioning, setIsTransitioning] = React.useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false); // 🔥 Track mobile state
 
   const currentWork = works[currentIndex];
-
-  // 🔥 Detect mobile/tablet viewport (hide thumbnails below 1024px)
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-
-    // Initial check
-    checkMobile();
-
-    // Listen for resize
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Check if component is mounted (for SSR safety)
   useEffect(() => {
@@ -202,21 +186,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     };
   }, [isOpen]);
 
-  // Auto-scroll al thumbnail activo
-  useEffect(() => {
-    // 🔥 Skip on mobile since thumbnails are not rendered
-    if (isMobile || !thumbnailsRef.current || !isOpen) return;
-
-    const activeThumb = thumbnailsRef.current.children[currentIndex] as HTMLElement;
-    if (activeThumb) {
-      activeThumb.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center'
-      });
-    }
-  }, [currentIndex, isOpen, isMobile]);
-
   // Toggle play/pause
   const togglePlayPause = () => {
     if (videoRef.current) {
@@ -332,9 +301,13 @@ export const VideoModal: React.FC<VideoModalProps> = ({
 
           {/* Info del video - overlay dentro */}
           <div className={styles.videoInfo}>
-            <span className={styles.category}>{currentWork.category}</span>
-            <h3 className={styles.title}>{currentWork.title}</h3>
-            <p className={styles.client}>{currentWork.client}</p>
+            <span className={styles.categoryLabel}>
+              {currentWork.category.toUpperCase()}
+            </span>
+            <span className={styles.client}>{currentWork.client}</span>
+            <span className={styles.meta}>
+              {currentWork.title} · {currentWork.description}
+            </span>
           </div>
 
           {/* Contador dentro del video */}
@@ -359,41 +332,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
             </button>
           )}
         </div>
-
-        {/* Thumbnails - Desktop only */}
-        {works.length > 1 && !isMobile && (
-          <div ref={thumbnailsRef} className={styles.thumbnails}>
-            {works.map((work, index) => (
-              <button
-                key={work.id}
-                onClick={() => setCurrentIndex(index)}
-                onMouseEnter={(e) => {
-                  const video = e.currentTarget.querySelector('video');
-                  if (video) video.play();
-                }}
-                onMouseLeave={(e) => {
-                  const video = e.currentTarget.querySelector('video');
-                  if (video) {
-                    video.pause();
-                    video.currentTime = 0;
-                  }
-                }}
-                className={`${styles.thumbnail} ${
-                  index === currentIndex ? styles.active : ''
-                }`}
-                aria-label={`Ver ${work.title}`}
-              >
-                <video
-                  src={work.id === '3' ? `${work.video}#t=1` : work.video}
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                />
-              </button>
-            ))}
-          </div>
-        )}
       </div>
 
       {/* Botón siguiente */}

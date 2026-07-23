@@ -70,22 +70,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
       <div className={styles.overlay} />
 
-      <div className={styles.category}>
-        <span>{work.category}</span>
-      </div>
-
       <div className={styles.info}>
-        {work.title && (
-          <h3 className={styles.title}>
-            {work.title}
-          </h3>
-        )}
+        <span className={styles.categoryLabel}>
+          {work.category.toUpperCase()}
+        </span>
 
-        {work.description && (
-          <p className={styles.description}>
-            {work.description}
-          </p>
-        )}
+        <span className={styles.client}>
+          {work.client}
+        </span>
+
+        <span className={styles.meta}>
+          {work.title} · {work.description}
+        </span>
 
         <div className={styles.arrow}>
           <svg
