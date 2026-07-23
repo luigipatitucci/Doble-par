@@ -1,6 +1,6 @@
 export type WorkOrientation = 'landscape' | 'portrait' | 'square';
 
-export type WorkCategory = 'Audiovisual' | 'Branding' | 'Experiencias' | 'IA' | 'Narrativa';
+export type WorkCategory = 'Commercials' | 'Brand Films' | 'Social & Digital' | 'Experiences';
 
 export interface Work {
   id: string;

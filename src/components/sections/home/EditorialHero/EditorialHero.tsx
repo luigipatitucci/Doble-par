@@ -168,8 +168,9 @@ export const EditorialHero: React.FC = () => {
         muted
         playsInline
         preload="auto"
+        onError={(e) => console.error('EditorialHero video load error:', e)}
       >
-        <source src="/videos/sur.mp4" type="video/mp4" />
+        <source src="/videos/SUR_1.mp4" type="video/mp4" />
       </video>
 
       {/* Overlay gradiente */}

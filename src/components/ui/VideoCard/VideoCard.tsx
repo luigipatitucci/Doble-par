@@ -58,6 +58,11 @@ export const VideoCard: React.FC<VideoCardProps> = ({ work, priority = false }) 
           playsInline
           preload="auto"
           onLoadedData={() => setIsLoaded(true)}
+          onError={(e) => {
+            console.error(`Video load error for work ID ${work.id} (${work.title}):`, work.video);
+            console.error('Error details:', e);
+            setIsLoaded(true); // Show card even if video fails
+          }}
         />
         
         <div className={`${styles.overlay} ${isHovered ? styles.visible : ''}`}>

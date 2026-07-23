@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 
@@ -30,36 +31,6 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Bloquear scroll del body cuando el menú mobile está abierto
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      // Guardar posición actual del scroll
-      const scrollY = window.scrollY;
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-    } else {
-      // Restaurar scroll
-      const scrollY = document.body.style.top;
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
-    }
-
-    return () => {
-      // Cleanup al desmontar
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-    };
-  }, [isMobileMenuOpen]);
-
   const handleNavClick = () => {
     setIsMobileMenuOpen(false);
   };
@@ -67,8 +38,18 @@ export const Navbar: React.FC = () => {
   return (
     <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
-          DOBLEPAR
+
+        {/* LOGO */}
+        <Link href="/" className={styles.logoWrapper}>
+          <Image 
+            src="/images/logo.png" 
+            alt="DOBLEPAR"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className={styles.logo}
+            priority
+          />
         </Link>
 
         {/* Desktop Menu */}

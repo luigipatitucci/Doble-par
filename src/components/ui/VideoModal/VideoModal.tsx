@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { Work } from '@/types/work';
 import styles from './VideoModal.module.css';
 
@@ -26,8 +27,53 @@ export const VideoModal: React.FC<VideoModalProps> = ({
   const isInitialLoad = useRef(true);
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isTransitioning, setIsTransitioning] = React.useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // 🔥 Track mobile state
 
   const currentWork = works[currentIndex];
+
+  // 🔥 Detect mobile/tablet viewport (hide thumbnails below 1024px)
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    // Initial check
+    checkMobile();
+
+    // Listen for resize
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Check if component is mounted (for SSR safety)
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen && isMounted) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, isMounted]);
+
+  // 🔥 Enhanced onClose handler to stop video immediately
+  const handleClose = useCallback(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+    onClose();
+  }, [onClose]);
 
   const next = () => {
     setCurrentIndex((currentIndex + 1) % works.length);
@@ -37,25 +83,18 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     setCurrentIndex((currentIndex - 1 + works.length) % works.length);
   };
 
-  // Bloquear scroll del body cuando el modal está abierto
+  // Marcar carga inicial al abrir modal
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      isInitialLoad.current = true; // Reiniciar en cada apertura del modal
-    } else {
-      document.body.style.overflow = 'auto';
+      isInitialLoad.current = true;
     }
-
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
   }, [isOpen]);
 
   // Manejar tecla ESC
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -66,7 +105,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     return () => {
       document.removeEventListener('keydown', handleEscape);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
   // Manejar teclas de navegación (flechas)
   useEffect(() => {
@@ -97,14 +136,22 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     if (!video || !wrapper || !isOpen) return;
 
     const changeVideo = async () => {
+      // 🔥 Stop previous video before changing
+      if (video.src) {
+        video.pause();
+        video.currentTime = 0;
+      }
+
       // Si es la carga inicial, no hacer transición
       if (isInitialLoad.current) {
         video.src = currentWork.id === '3' ? `${currentWork.video}#t=1` : currentWork.video;
         video.load();
+        console.log('Initial load - Loading video in modal:', currentWork.video, 'for work:', currentWork.title);
         try {
           await video.play();
           setIsPlaying(true);
         } catch (error) {
+          console.error('Initial load - Video play error in modal:', error, 'video:', currentWork.video);
           setIsPlaying(false);
         }
         isInitialLoad.current = false;
@@ -122,10 +169,14 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       video.src = currentWork.id === '3' ? `${currentWork.video}#t=1` : currentWork.video;
       video.load();
       
+      // Log video path for debugging
+      console.log('Loading video in modal:', currentWork.video, 'for work:', currentWork.title);
+      
       try {
         await video.play();
         setIsPlaying(true);
       } catch (error) {
+        console.error('Video play error in modal:', error, 'video:', currentWork.video);
         setIsPlaying(false);
       }
       
@@ -137,19 +188,34 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     changeVideo();
   }, [currentIndex, isOpen, currentWork.video]);
 
+  // 🔥 CLEANUP: Stop video when modal closes
+  useEffect(() => {
+    const video = videoRef.current;
+
+    // Cleanup function runs when modal closes or component unmounts
+    return () => {
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+        video.src = ''; // Clear source to prevent memory leaks
+      }
+    };
+  }, [isOpen]);
+
   // Auto-scroll al thumbnail activo
   useEffect(() => {
-    if (thumbnailsRef.current && isOpen) {
-      const activeThumb = thumbnailsRef.current.children[currentIndex] as HTMLElement;
-      if (activeThumb) {
-        activeThumb.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'center'
-        });
-      }
+    // 🔥 Skip on mobile since thumbnails are not rendered
+    if (isMobile || !thumbnailsRef.current || !isOpen) return;
+
+    const activeThumb = thumbnailsRef.current.children[currentIndex] as HTMLElement;
+    if (activeThumb) {
+      activeThumb.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
     }
-  }, [currentIndex, isOpen]);
+  }, [currentIndex, isOpen, isMobile]);
 
   // Toggle play/pause
   const togglePlayPause = () => {
@@ -167,7 +233,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
   // Click fuera del video para cerrar
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === overlayRef.current) {
-      onClose();
+      handleClose();
     }
   };
 
@@ -197,7 +263,11 @@ export const VideoModal: React.FC<VideoModalProps> = ({
 
   if (!isOpen) return null;
 
-  return (
+  // Don't render on server or if not mounted
+  if (!isMounted) return null;
+
+  // Render modal using Portal to document.body
+  const modalContent = (
     <div
       ref={overlayRef}
       className={styles.overlay}
@@ -209,7 +279,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       {/* Botón cerrar */}
       <button
         className={styles.close}
-        onClick={onClose}
+        onClick={handleClose}
         aria-label="Cerrar modal"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -249,6 +319,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           className={styles.videoWrapper}
         >
           <video
+            key={currentWork.video} // 🔥 Force remount on video change
             ref={videoRef}
             className={`${styles.video} ${
               currentWork.orientation === 'portrait' ? styles.portrait : styles.landscape
@@ -289,8 +360,8 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           )}
         </div>
 
-        {/* Thumbnails */}
-        {works.length > 1 && (
+        {/* Thumbnails - Desktop only */}
+        {works.length > 1 && !isMobile && (
           <div ref={thumbnailsRef} className={styles.thumbnails}>
             {works.map((work, index) => (
               <button
@@ -345,4 +416,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       )}
     </div>
   );
+
+  // Use Portal to render modal at document.body level
+  return createPortal(modalContent, document.body);
 };

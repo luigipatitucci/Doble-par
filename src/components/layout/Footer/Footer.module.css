@@ -32,12 +32,15 @@
 }
 
 .logo {
-  font-size: clamp(1.75rem, 2.5vw, 2.75rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--color-text-primary);
-  margin: 0;
-  font-family: var(--font-display);
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.logo img {
+  height: auto;
+  width: auto;
+  max-height: 48px;
 }
 
 .description {

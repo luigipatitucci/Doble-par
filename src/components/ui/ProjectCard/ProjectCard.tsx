@@ -85,6 +85,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               preload="metadata"
               poster={work.poster}
               aria-label={`Video of ${work.title} - ${work.description}`}
+              onError={(e) => {
+                console.error(`Video load error for work ID ${work.id} (${work.title}):`, work.video);
+                console.error('Error details:', e);
+              }}
             >
               <source src={work.id === '3' ? `${work.video}#t=1` : work.video} type="video/mp4" />
             </video>
@@ -152,6 +156,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               preload="metadata"
               poster={work.poster}
               aria-label={`Video of ${work.title} - ${work.description}`}
+              onError={(e) => {
+                console.error(`Video load error for work ID ${work.id} (${work.title}):`, work.video);
+                console.error('Error details:', e);
+              }}
             >
               <source src={work.id === '3' ? `${work.video}#t=1` : work.video} type="video/mp4" />
             </video>

@@ -2,7 +2,7 @@
 .homeContact {
   position: relative;
   background: var(--color-bg);
-  min-height: 75svh;
+  min-height: 75vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,7 +136,7 @@
 /* Responsive - Tablet */
 @media (max-width: 1024px) {
   .homeContact {
-    min-height: 70svh;
+    min-height: 70vh;
     padding: var(--section-padding-small) 4vw;
   }
 
@@ -173,7 +173,7 @@
 /* Responsive - Mobile */
 @media (max-width: 768px) {
   .homeContact {
-    min-height: 65svh;
+    min-height: 65vh;
     padding: var(--section-padding-small) 6vw;
   }
 
@@ -219,7 +219,7 @@
 /* Mobile pequeño */
 @media (max-width: 480px) {
   .homeContact {
-    min-height: 60svh;
+    min-height: 60vh;
     padding: var(--section-padding-small) 20px;
   }
 

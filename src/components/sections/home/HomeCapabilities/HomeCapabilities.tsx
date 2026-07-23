@@ -94,37 +94,8 @@ export const HomeCapabilities: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.capabilities}>
-      <div className={styles.container}>
-        {/* Encabezado */}
-        <div className={styles.header}>
-          <span ref={labelRef} className={styles.label}>
-            HOW WE WORK
-          </span>
-          <h2 ref={titleRef} className={styles.title}>
-            We work across disciplines, formats and languages.
-          </h2>
-        </div>
-
-        {/* Grid de módulos */}
-        <div ref={gridRef} className={styles.grid}>
-          {capabilities.map((capability, index) => (
-            <article
-              key={capability.id}
-              ref={(el) => { moduleRefs.current[index] = el; }}
-              className={styles.module}
-            >
-              <div className={styles.moduleHeader}>
-                <span className={styles.index}>{capability.index}</span>
-              </div>
-              <div className={styles.moduleContent}>
-                <h3 className={styles.moduleTitle}>{capability.title}</h3>
-                <p className={styles.moduleDescription}>{capability.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
+    <section ref={sectionRef}>
+      
     </section>
   );
 };

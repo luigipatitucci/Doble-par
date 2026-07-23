@@ -7,6 +7,8 @@
   border-radius: 12px;
   background: #101010;
   transition: transform 0.4s ease;
+  cursor: pointer;
+  pointer-events: auto; /* Ensure clickable */
 }
 
 .card:hover {
@@ -20,6 +22,9 @@
   height: 100%;
   text-decoration: none;
   color: inherit;
+  position: relative;
+  z-index: 1;
+  pointer-events: auto; /* Ensure clickable */
 }
 
 /* Media container */
@@ -56,6 +61,7 @@
   );
   transition: background 0.3s ease;
   z-index: 1;
+  pointer-events: none; /* Don't block clicks */
 }
 
 .card:hover .overlay {
@@ -215,6 +221,12 @@
 @media (max-width: 768px) {
   .card {
     border-radius: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1); /* Add touch feedback */
+    touch-action: manipulation; /* Optimize touch handling */
+  }
+
+  .card:hover {
+    transform: none; /* Disable hover transform on mobile */
   }
 
   .playButton {

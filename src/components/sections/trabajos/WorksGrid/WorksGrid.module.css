@@ -1,43 +1,306 @@
+/* =========================
+   SECTION
+========================= */
+
 .worksGrid {
-  padding: var(--section-padding) 0;
-  background: var(--color-bg-primary);
-  
-  /* Sistema de espaciado editorial consistente */
-  --works-gap: 24px;
-  --works-padding: 5vw;
+  position: relative;
+  background: #080808;
+  padding: clamp(4rem, 8vw, 8rem) 5vw;
 }
 
 .container {
-  max-width: var(--container-max-width);
+  max-width: 1520px;
   margin: 0 auto;
-  padding: 0 var(--works-padding);
+  position: relative;
 }
+
+/* =========================
+   FILTERS
+========================= */
+
+.filterWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.filters {
+  display: flex;
+  gap: clamp(16px, 2vw, 32px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filterButton {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+
+.filterButton::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transition: 0.3s;
+}
+
+.filterButton.active {
+  color: var(--color-text-primary);
+}
+
+.filterButton.active::after {
+  transform: scaleX(1);
+}
+
+/* =========================
+   GRID (MISMO QUE HOME)
+========================= */
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: var(--works-gap);
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-flow: dense;
+  gap: clamp(12px, 1.4vw, 24px);
+}
+
+.grid > * {
   width: 100%;
+  height: 100%;
 }
 
-@media (max-width: 1024px) {
-  .worksGrid {
-    --works-padding: 4vw;
-  }
+/* Smooth scrolling for all screen sizes */
+.grid {
+  scroll-behavior: smooth;
+}
 
+/* =========================
+   DESKTOP - Keep Editorial Grid (>= 1024px)
+========================= */
+
+@media (min-width: 1024px) {
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    overflow: visible;
+    scroll-snap-type: none;
   }
 }
 
-@media (max-width: 768px) {
-  .worksGrid {
-    padding: var(--section-padding-small) 0;
-    --works-padding: 5vw;
-    --works-gap: 16px;
+/* Carousel wrapper for smaller screens */
+.carouselWrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.carouselWrapper::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* =========================
+   CARDS (ALINEADAS CON HOME)
+========================= */
+
+.cardFull {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  z-index: 2; /* Above gradient overlay */
+  pointer-events: auto; /* Ensure clickable */
+}
+
+.cardFeatured {
+  grid-column: span 8;
+  grid-row: span 2;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.cardLandscape {
+  grid-column: span 4;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.cardLandscapeWide {
+  grid-column: span 6;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.cardPortrait {
+  grid-column: span 3; /* 🔥 CLAVE */
+  grid-row: span 2;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 0;
+  color: var(--color-text-secondary);
+}
+
+/* =========================
+   TABLET - CAROUSEL (2 cards per view)
+========================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid {
+    display: flex;
+    flex-direction: row;
+    gap: clamp(16px, 2vw, 24px);
+    grid-template-columns: unset;
+    padding: 0 5vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* All cards in carousel mode take consistent width */
+  .cardFull,
+  .cardFeatured,
+  .cardLandscape,
+  .cardLandscapeWide,
+  .cardPortrait {
+    flex: 0 0 calc(50% - 12px); /* 2 cards per view */
+    scroll-snap-align: start;
+    grid-column: unset;
+    grid-row: unset;
+    position: relative;
+    z-index: 2; /* Above any overlays */
+    pointer-events: auto; /* Ensure clickable */
+  }
+
+  /* 🔥 FORCE ALL CARDS TO 16:9 FOR VISUAL CONSISTENCY */
+  .cardFull,
+  .cardFeatured,
+  .cardLandscape,
+  .cardLandscapeWide,
+  .cardPortrait {
+    aspect-ratio: 16 / 9 !important;
+  }
+}
+
+/* =========================
+   MOBILE - CAROUSEL with PEEK (1 card per view)
+========================= */
+
+@media (max-width: 767px) {
+  /* 🔥 HORIZONTAL SCROLLABLE FILTERS */
+  .filterWrapper {
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .filterWrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filters {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding: 0 6vw;
+    scroll-snap-type: x proximity;
+  }
+
+  .filterButton {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  /* 🔥 CAROUSEL WITH PEEK */
   .grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-left: 6vw;
+    padding-right: 6vw;
+    overflow-x: auto;
+    overflow-y: visible; /* Don't clip content */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: relative;
+    z-index: 2; /* Above gradient */
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 🔥 GRADIENT FADE for scroll affordance */
+  .container::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 60px;
+    height: 300px;
+    background: linear-gradient(to left, #080808 0%, transparent 100%);
+    pointer-events: none; /* Don't block interaction */
+    z-index: 1; /* Below cards */
+  }
+
+  /* All cards with PEEK of next card */
+  .cardFull,
+  .cardFeatured,
+  .cardLandscape,
+  .cardLandscapeWide,
+  .cardPortrait {
+    flex: 0 0 85%; /* Shows peek of next card */
+    scroll-snap-align: start; /* Snap to start, not center */
+    grid-column: unset;
+    grid-row: unset;
+    position: relative;
+    z-index: 2; /* Above gradient overlay */
+    pointer-events: auto; /* Ensure clickable */
+    min-height: 200px; /* Prevent collapse */
+  }
+
+  /* 🔥 FORCE ALL CARDS TO 16:9 FOR VISUAL CONSISTENCY */
+  .cardFull,
+  .cardFeatured,
+  .cardLandscape,
+  .cardLandscapeWide,
+  .cardPortrait {
+    aspect-ratio: 16 / 9 !important;
   }
 }

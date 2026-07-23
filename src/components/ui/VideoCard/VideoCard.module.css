@@ -6,34 +6,44 @@
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  height: 100%;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 }
 
-.card:hover {
-  transform: scale(1.005) translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+/* 🔥 DESKTOP HOVER - SUBTLE ZOOM */
+@media (min-width: 1024px) {
+  .card:hover {
+    transform: scale(1.03) translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .videoWrapper {
   position: relative;
   width: 100%;
-  flex: 1 1 auto;
+  height: 100%;
   overflow: hidden;
   background: var(--color-bg-tertiary);
-  min-height: 0;
 }
 
-/* Cuando el card está en un grid con altura definida, videoWrapper ocupa toda la altura */
-/* Cuando no, usa el aspect-ratio */
-.horizontal .videoWrapper {
+/* Aspect ratios for different orientations */
+.landscape .videoWrapper {
   aspect-ratio: 16 / 9;
 }
 
-.vertical .videoWrapper {
+.portrait .videoWrapper {
   aspect-ratio: 9 / 16;
+}
+
+/* 🔥 ENSURE VIDEO FILLS CONTAINER WITH COVER */
+@media (max-width: 1023px) {
+  .videoWrapper {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .landscape .videoWrapper,
+  .portrait .videoWrapper {
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .placeholder {
@@ -118,10 +128,11 @@
   margin-bottom: 0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .card:hover {
-    /* Desactivar hover en mobile */
+    /* Desactivar hover en mobile/tablet */
     transform: none;
+    box-shadow: none;
   }
 
   .overlay {
@@ -135,11 +146,5 @@
   /* En mobile, mostrar siempre el overlay */
   .overlay {
     opacity: 0.95;
-  }
-  
-  /* Asegurar que videoWrapper ocupe todo el espacio en mobile */
-  .videoWrapper {
-    height: 100%;
-    min-height: 300px;
   }
 }

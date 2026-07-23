@@ -11,27 +11,27 @@ export const capabilities: Capability[] = [
     index: '01',
     title: 'Film & Visual',
     description:
-      'We create cinematic visual pieces with artificial intelligence, exploring new forms of narrative.',
+      'We create cinematic visual work through AI and live-action production, exploring new forms of storytelling across physical and digital worlds.',
   },
   {
     id: '02',
     index: '02',
     title: 'Experiences',
     description:
-      'We design activations and immersive spaces that connect brands with audiences.',
+      'We design brand activations and immersive spaces that connect with audiences in memorable ways.',
   },
   {
     id: '03',
     index: '03',
     title: 'Narrative',
     description:
-      'We build coherent narrative universes capable of expanding across platforms and formats.',
+      'We build coherent and expandable narrative universes that transcend platforms and formats.',
   },
   {
     id: '04',
     index: '04',
     title: 'Technology',
     description:
-      'We integrate artificial intelligence and emerging tools within the creative process.',
+      'We use AI and cutting-edge tools to constantly innovate in our creative processes.',
   },
 ];

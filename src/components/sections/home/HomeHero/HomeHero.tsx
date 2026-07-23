@@ -85,8 +85,9 @@ export const HomeHero: React.FC = () => {
             muted
             playsInline
             preload="auto"
+            onError={(e) => console.error('Video load error (block1):', e)}
           >
-            <source src="/videos/sur.mp4" type="video/mp4" />
+            <source src="/videos/SUR_1.mp4" type="video/mp4" />
           </video>
           <div className={styles.videoOverlay} />
           <span className={styles.label}>EXPERIENCIAS</span>
@@ -101,8 +102,9 @@ export const HomeHero: React.FC = () => {
             muted
             playsInline
             preload="auto"
+            onError={(e) => console.error('Video load error (block2):', e)}
           >
-            <source src="/videos/crunch-fantasia.mp4" type="video/mp4" />
+            <source src="/videos/crunch-fantasia1.mp4" type="video/mp4" />
           </video>
           <div className={styles.videoOverlay} />
           <span className={styles.label}>IA</span>
@@ -117,6 +119,7 @@ export const HomeHero: React.FC = () => {
             muted
             playsInline
             preload="auto"
+            onError={(e) => console.error('Video load error (block3):', e)}
           >
             <source src="/videos/frizze-pasion.mp4" type="video/mp4" />
           </video>
@@ -133,8 +136,9 @@ export const HomeHero: React.FC = () => {
             muted
             playsInline
             preload="auto"
+            onError={(e) => console.error('Video load error (block4):', e)}
           >
-            <source src="/videos/sur.mp4" type="video/mp4" />
+            <source src="/videos/SUR_1.mp4" type="video/mp4" />
           </video>
           <div className={styles.videoOverlay} />
           <span className={styles.label}>NARRATIVA</span>
@@ -149,8 +153,9 @@ export const HomeHero: React.FC = () => {
             muted
             playsInline
             preload="auto"
+            onError={(e) => console.error('Video load error (block5):', e)}
           >
-            <source src="/videos/crunch-fantasia.mp4" type="video/mp4" />
+            <source src="/videos/crunch-fantasia1.mp4" type="video/mp4" />
           </video>
           <div className={styles.videoOverlay} />
           <span className={styles.label}>CONCEPTO</span>
@@ -165,6 +170,7 @@ export const HomeHero: React.FC = () => {
             muted
             playsInline
             preload="auto"
+            onError={(e) => console.error('Video load error (block6):', e)}
           >
             <source src="/videos/frizze-pasion.mp4" type="video/mp4" />
           </video>

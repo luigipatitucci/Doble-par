@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import styles from './Footer.module.css';
 
@@ -69,7 +70,14 @@ export const Footer: React.FC = () => {
         <div className={styles.grid}>
           {/* Columna 1 - Marca */}
           <div className={styles.brand}>
-            <h3 className={styles.logo}>DOBLEPAR</h3>
+            <div className={styles.logo}>
+              <Image 
+                src="/images/logo.png" 
+                alt="DOBLEPAR" 
+                width={120} 
+                height={40}
+              />
+            </div>
             <p className={styles.description}>
               Creative and audiovisual studio building distinctive visual universes through storytelling, creative direction, AI, and live-action production—across both physical and digital experiences.
             </p>
