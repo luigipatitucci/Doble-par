@@ -133,6 +133,7 @@ export const HomeSelectedWork: React.FC = () => {
                 <ProjectCard
                   work={item.work!}
                   featured={item.type === 'featured'}
+                  previewMode="hover"
                   onClick={() => {
                     const i = works.findIndex(w => w.id === item.work!.id);
                     setCurrentIndex(i);

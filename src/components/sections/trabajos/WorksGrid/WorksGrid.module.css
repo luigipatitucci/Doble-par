@@ -52,7 +52,7 @@
   height: 1px;
   background: var(--color-accent);
   transform: scaleX(0);
-  transition: 0.3s;
+  transition: transform 0.3s ease;
 }
 
 .filterButton.active {
@@ -64,169 +64,174 @@
 }
 
 /* =========================
-   GRID (MISMO QUE HOME)
+   CAROUSEL WRAPPER
 ========================= */
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-flow: dense;
-  gap: clamp(12px, 1.4vw, 24px);
+.carouselWrapper {
+  position: relative;
 }
 
-.grid > * {
-  width: 100%;
+/* FADE LEFT */
+.carouselWrapper::before {
+  display: none;
+}
+
+/* FADE RIGHT */
+.carouselWrapper::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 80px;
   height: 100%;
-}
-
-/* Smooth scrolling for all screen sizes */
-.grid {
-  scroll-behavior: smooth;
+  background: linear-gradient(to left, #080808 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 3;
 }
 
 /* =========================
-   DESKTOP - Keep Editorial Grid (>= 1024px)
+   CAROUSEL
+========================= */
+
+.carousel {
+  display: flex;
+  gap: clamp(18px, 2vw, 28px);
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+
+  padding: 0 24px;
+
+  cursor: grab;
+}
+
+.carousel:active {
+  cursor: grabbing;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================
+   NAV BUTTONS - PREMIUM DESIGN
+========================= */
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(12, 12, 12, 0.35);
+  backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  color: rgba(255, 255, 255, 0.65);
+
+  cursor: pointer;
+  z-index: 6;
+
+  opacity: 0.35;
+  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carouselWrapper:hover .navButton {
+  opacity: 1;
+}
+
+.navButton:hover {
+  background: rgba(12, 12, 12, 0.45);
+  backdrop-filter: blur(24px);
+  border-color: rgba(255, 90, 78, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 24px rgba(255, 90, 78, 0.15);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.navButton:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.navButton svg {
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navLeft {
+  left: -92px;
+}
+
+.navLeft:hover svg {
+  transform: translateX(-2px);
+}
+
+.navRight {
+  right: -92px;
+}
+
+.navRight:hover svg {
+  transform: translateX(2px);
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+/* =========================
+   DESKTOP
 ========================= */
 
 @media (min-width: 1024px) {
-  .grid {
-    overflow: visible;
-    scroll-snap-type: none;
+
+  .card {
+    flex: 0 0 48%;
   }
 }
 
-/* Carousel wrapper for smaller screens */
-.carouselWrapper {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-.carouselWrapper::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
-
 /* =========================
-   CARDS (ALINEADAS CON HOME)
-========================= */
-
-.cardFull {
-  grid-column: 1 / -1;
-  aspect-ratio: 16 / 9;
-  position: relative;
-  z-index: 2; /* Above gradient overlay */
-  pointer-events: auto; /* Ensure clickable */
-}
-
-.cardFeatured {
-  grid-column: span 8;
-  grid-row: span 2;
-  aspect-ratio: 16 / 9;
-  position: relative;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.cardLandscape {
-  grid-column: span 4;
-  aspect-ratio: 16 / 9;
-  position: relative;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.cardLandscapeWide {
-  grid-column: span 6;
-  aspect-ratio: 16 / 9;
-  position: relative;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.cardPortrait {
-  grid-column: span 3; /* 🔥 CLAVE */
-  grid-row: span 2;
-  aspect-ratio: 9 / 16;
-  position: relative;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-/* =========================
-   EMPTY STATE
-========================= */
-
-.emptyState {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 60px 0;
-  color: var(--color-text-secondary);
-}
-
-/* =========================
-   TABLET - CAROUSEL (2 cards per view)
+   TABLET
 ========================= */
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  .grid {
-    display: flex;
-    flex-direction: row;
-    gap: clamp(16px, 2vw, 24px);
-    grid-template-columns: unset;
-    padding: 0 5vw;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
 
-  .grid::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* All cards in carousel mode take consistent width */
-  .cardFull,
-  .cardFeatured,
-  .cardLandscape,
-  .cardLandscapeWide,
-  .cardPortrait {
-    flex: 0 0 calc(50% - 12px); /* 2 cards per view */
-    scroll-snap-align: start;
-    grid-column: unset;
-    grid-row: unset;
-    position: relative;
-    z-index: 2; /* Above any overlays */
-    pointer-events: auto; /* Ensure clickable */
-  }
-
-  /* 🔥 FORCE ALL CARDS TO 16:9 FOR VISUAL CONSISTENCY */
-  .cardFull,
-  .cardFeatured,
-  .cardLandscape,
-  .cardLandscapeWide,
-  .cardPortrait {
-    aspect-ratio: 16 / 9 !important;
+  .card {
+    flex: 0 0 58%;
   }
 }
 
 /* =========================
-   MOBILE - CAROUSEL with PEEK (1 card per view)
+   MOBILE
 ========================= */
 
 @media (max-width: 767px) {
-  /* 🔥 HORIZONTAL SCROLLABLE FILTERS */
+
   .filterWrapper {
     justify-content: flex-start;
     overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    -ms-overflow-style: none;
   }
 
   .filterWrapper::-webkit-scrollbar {
@@ -235,72 +240,18 @@
 
   .filters {
     flex-wrap: nowrap;
-    justify-content: flex-start;
     padding: 0 6vw;
-    scroll-snap-type: x proximity;
   }
 
-  .filterButton {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
+  .carousel {
+    padding: 0 6vw;
   }
 
-  /* 🔥 CAROUSEL WITH PEEK */
-  .grid {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    padding-left: 6vw;
-    padding-right: 6vw;
-    overflow-x: auto;
-    overflow-y: visible; /* Don't clip content */
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    position: relative;
-    z-index: 2; /* Above gradient */
+  .card {
+    flex: 0 0 90%;
   }
 
-  .grid::-webkit-scrollbar {
+  .navButton {
     display: none;
-  }
-
-  /* 🔥 GRADIENT FADE for scroll affordance */
-  .container::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 60px;
-    height: 300px;
-    background: linear-gradient(to left, #080808 0%, transparent 100%);
-    pointer-events: none; /* Don't block interaction */
-    z-index: 1; /* Below cards */
-  }
-
-  /* All cards with PEEK of next card */
-  .cardFull,
-  .cardFeatured,
-  .cardLandscape,
-  .cardLandscapeWide,
-  .cardPortrait {
-    flex: 0 0 85%; /* Shows peek of next card */
-    scroll-snap-align: start; /* Snap to start, not center */
-    grid-column: unset;
-    grid-row: unset;
-    position: relative;
-    z-index: 2; /* Above gradient overlay */
-    pointer-events: auto; /* Ensure clickable */
-    min-height: 200px; /* Prevent collapse */
-  }
-
-  /* 🔥 FORCE ALL CARDS TO 16:9 FOR VISUAL CONSISTENCY */
-  .cardFull,
-  .cardFeatured,
-  .cardLandscape,
-  .cardLandscapeWide,
-  .cardPortrait {
-    aspect-ratio: 16 / 9 !important;
   }
 }

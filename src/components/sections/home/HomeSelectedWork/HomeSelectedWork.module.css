@@ -164,15 +164,15 @@
 
   .cardPortrait {
     grid-column: span 3;
-    grid-row: span 1;
+    grid-row: span 2;
+    aspect-ratio: 9 / 16;
   }
 
   .cardFull,
   .cardFeatured,
   .cardLandscape,
-  .cardLandscapeWide,
-  .cardPortrait {
-    aspect-ratio: 16 / 9 !important;
+  .cardLandscapeWide {
+    aspect-ratio: 16 / 9;
   }
 }
 
@@ -246,11 +246,16 @@
   .cardFull,
   .cardFeatured,
   .cardLandscape,
-  .cardLandscapeWide,
-  .cardPortrait {
+  .cardLandscapeWide {
     flex: 0 0 85%;
     scroll-snap-align: start;
-    aspect-ratio: 16 / 9 !important;
+    aspect-ratio: 16 / 9;
+  }
+
+  .cardPortrait {
+    flex: 0 0 48%;
+    scroll-snap-align: start;
+    aspect-ratio: 9 / 16;
   }
 
   /* =========================

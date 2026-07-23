@@ -1,142 +1,194 @@
-/* Project Card */
+/* =========================
+   CARD BASE
+========================= */
+
 .card {
   position: relative;
   width: 100%;
   height: 100%;
+  min-width: 0;
   overflow: hidden;
   border-radius: 12px;
   background: #101010;
-  transition: transform 0.4s ease;
   cursor: pointer;
-  pointer-events: auto; /* Ensure clickable */
 }
 
-.card:hover {
-  transform: scale(1.01);
-}
-
-/* Link wrapper */
-.link {
+.link,
+.cardButton {
   display: block;
   width: 100%;
   height: 100%;
-  text-decoration: none;
-  color: inherit;
-  position: relative;
-  z-index: 1;
-  pointer-events: auto; /* Ensure clickable */
 }
 
-/* Media container */
+.cardButton {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+/* =========================
+   MEDIA
+========================= */
+
 .mediaContainer {
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: inherit;
   overflow: hidden;
 }
 
-/* Video */
 .video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  object-position: center;
 }
 
-.card:hover .video {
-  transform: scale(1.02);
+.card[data-preview-mode='hover'][data-orientation='portrait'] .video {
+  object-fit: cover;
+  object-position: center;
 }
 
-/* Overlay */
+.poster {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*
+  Para posters verticales dentro de cards horizontales,
+  mostramos principalmente la parte inferior.
+*/
+.card[data-orientation='portrait'] .poster {
+  object-fit: cover;
+  object-position: center bottom;
+}
+
+.card:hover .poster {
+  transform: scale(1.04);
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.25) 0%,
-    rgba(0, 0, 0, 0.45) 100%
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.18) 45%,
+    rgba(0, 0, 0, 0.82) 100%
   );
-  transition: background 0.3s ease;
-  z-index: 1;
-  pointer-events: none; /* Don't block clicks */
+
+  transition: opacity 0.3s ease;
 }
 
 .card:hover .overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
+  opacity: 0.9;
 }
 
-/* Play button */
+/* =========================
+   PLAY BUTTON
+========================= */
+
 .playButton {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
+  z-index: 2;
+
+  width: 52px;
+  height: 52px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid var(--color-border-subtle);
+
+  color: #fff;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  color: var(--color-text-primary);
-  z-index: 2;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    background 0.25s ease;
+
+  pointer-events: none;
 }
 
 .card:hover .playButton {
-  background: rgba(0, 0, 0, 0.8);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%) scale(1.05);
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  background: rgba(0, 0, 0, 0.7);
 }
 
-/* Category label */
+/* =========================
+   CATEGORY
+========================= */
+
 .category {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 2;
+  top: 18px;
+  left: 18px;
+  z-index: 3;
 }
 
 .category span {
   display: inline-block;
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: uppercase;
+  padding: 5px 10px;
+
+  color: #fff;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
-  color: var(--color-text-primary);
-  background: rgba(0, 0, 0, 0.6);
-  border: 1px solid var(--color-border-subtle);
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .card:hover .category span {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
-  background: rgba(0, 0, 0, 0.7);
+  color: #ff5a4e;
+  border-color: #ff5a4e;
 }
 
-/* Info section */
+/* =========================
+   INFO
+========================= */
+
 .info {
   position: absolute;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  padding: 24px;
-  z-index: 2;
+  z-index: 3;
+
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+
+  padding: 26px 22px 22px;
+
+  color: #fff;
+
   transition: transform 0.3s ease;
 }
 
@@ -144,158 +196,74 @@
   transform: translateY(-6px);
 }
 
-/* Title */
+/* =========================
+   TITLE
+========================= */
+
 .title {
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  margin: 0;
+
+  color: #fff;
+  font-size: clamp(1.2rem, 1.6vw, 1.6rem);
   font-weight: 600;
   line-height: 1.2;
-  color: var(--color-text-primary);
-  margin: 0;
-  transition: color 0.3s ease;
+  letter-spacing: -0.01em;
 }
 
-.featured .title {
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-}
+/* =========================
+   DESCRIPTION
+========================= */
 
-/* Description */
 .description {
-  font-size: clamp(0.875rem, 1vw, 1rem);
-  line-height: 1.5;
-  color: var(--color-text-secondary);
   margin: 0;
+
+  color: #fff;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  opacity: 0.7;
+
   transition: opacity 0.3s ease;
-  opacity: 0.8;
 }
 
 .card:hover .description {
   opacity: 1;
 }
 
-.featured .description {
-  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
-  max-width: 85%;
-}
+/* =========================
+   ARROW
+========================= */
 
-/* Arrow indicator */
 .arrow {
   display: flex;
   align-items: center;
-  color: var(--color-text-primary);
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: all 0.3s ease;
+  margin-top: 4px;
+  color: #fff;
 }
 
-.card:hover .arrow {
-  opacity: 1;
-  transform: translateX(0);
-}
+/* =========================
+   MOBILE
+========================= */
 
-/* Responsive - Tablet */
-@media (max-width: 1024px) {
-  .playButton {
-    width: 56px;
-    height: 56px;
-  }
-
-  .category {
-    top: 16px;
-    left: 16px;
-  }
-
-  .info {
-    padding: 20px;
-  }
-
-  .title {
-    font-size: clamp(1.15rem, 3vw, 1.5rem);
-  }
-
-  .featured .title {
-    font-size: clamp(1.35rem, 3.5vw, 2rem);
-  }
-}
-
-/* Responsive - Mobile */
 @media (max-width: 768px) {
   .card {
     border-radius: 0;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1); /* Add touch feedback */
-    touch-action: manipulation; /* Optimize touch handling */
-  }
-
-  .card:hover {
-    transform: none; /* Disable hover transform on mobile */
   }
 
   .playButton {
-    width: 48px;
-    height: 48px;
-  }
-
-  .category {
-    top: 12px;
-    left: 12px;
-  }
-
-  .category span {
-    padding: 4px 10px;
-    font-size: 0.688rem;
+    width: 44px;
+    height: 44px;
+    opacity: 1;
   }
 
   .info {
-    padding: 16px;
+    padding: 18px;
   }
 
   .title {
-    font-size: clamp(1.1rem, 5vw, 1.35rem);
-  }
-
-  .featured .title {
-    font-size: clamp(1.25rem, 5.5vw, 1.65rem);
+    font-size: 1.15rem;
   }
 
   .description {
-    font-size: clamp(0.85rem, 3.5vw, 0.95rem);
-  }
-
-  /* Desactivar algunos efectos hover en mobile */
-  .card:hover .video {
-    transform: scale(1);
-  }
-
-  .card:hover .info {
-    transform: translateY(0);
-  }
-
-  .arrow {
-    display: none;
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .video,
-  .overlay,
-  .playButton,
-  .category span,
-  .info,
-  .title,
-  .description,
-  .arrow {
-    transition: none;
-  }
-
-  .card:hover .video {
-    transform: none;
-  }
-
-  .card:hover .info {
-    transform: none;
-  }
-
-  .card:hover .arrow {
-    transform: none;
+    font-size: 0.8rem;
   }
 }

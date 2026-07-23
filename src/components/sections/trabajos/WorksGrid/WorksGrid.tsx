@@ -25,72 +25,97 @@ export const WorksGrid: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeFilter, setActiveFilter] = useState<FilterCategory>('All');
-  const carouselRef = useRef<HTMLDivElement>(null); // 🔥 Ref for carousel scroll
 
-  // 🔥 Reset scroll position when filter changes
-  useEffect(() => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollTo({
-        left: 0,
-        behavior: 'smooth'
-      });
-    }
-  }, [activeFilter]);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [hasDragged, setHasDragged] = useState(false);
+
+  const startX = useRef(0);
+  const scrollStart = useRef(0);
 
   const filteredWorks =
     activeFilter === 'All'
       ? works
       : works.filter(work => work.category === activeFilter);
 
-  // =========================
-  // MISMA LÓGICA QUE HOME 🔥
-  // =========================
+  // 🔥 Scroll buttons
+  const updateScrollButtons = () => {
+    if (!carouselRef.current) return;
 
-  const featured = filteredWorks.find(w => w.featured);
-  const portraits = filteredWorks.filter(
-    w => w.orientation === 'portrait' && !w.featured
-  );
-  const landscapes = filteredWorks.filter(
-    w => w.orientation === 'landscape' && !w.featured
-  );
+    const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
 
-  const layout = [
-    { work: featured, type: 'landscapeWide' },
+    setCanScrollLeft(scrollLeft > 5);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
+  };
 
-    { work: portraits[0], type: 'portrait' },
-    { work: portraits[1], type: 'portrait' },
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
 
-    { work: landscapes[0], type: 'landscapeWide' },
-    { work: landscapes[1], type: 'landscapeWide' },
-    { work: landscapes[2], type: 'landscapeWide' },
+    updateScrollButtons();
 
-    { work: portraits[2], type: 'portrait' },
-    { work: landscapes[3], type: 'landscapeWide' },
-    { work: portraits[3], type: 'portrait' },
+    el.addEventListener('scroll', updateScrollButtons);
+    window.addEventListener('resize', updateScrollButtons);
 
-    { work: landscapes[4], type: 'landscapeWide' },
-    { work: portraits[4], type: 'portrait' },
-    { work: landscapes[5], type: 'landscape' },
+    return () => {
+      el.removeEventListener('scroll', updateScrollButtons);
+      window.removeEventListener('resize', updateScrollButtons);
+    };
+  }, [filteredWorks]);
 
-    { work: portraits[5], type: 'portrait' },
-    { work: landscapes[6], type: 'landscape' },
-    { work: landscapes[7], type: 'landscapeWide' },
+  // 🔥 Reset scroll on filter
+  useEffect(() => {
+    carouselRef.current?.scrollTo({
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, [activeFilter]);
 
-    // 👉 resto automático
-    ...filteredWorks.slice(15).map(w => ({
-      work: w,
-      type: w.orientation === 'portrait' ? 'portrait' : 'landscape',
-    })),
-  ].filter(item => item.work);
+  // 🔥 Navigation
+  const handleScroll = (dir: 'left' | 'right') => {
+    if (!carouselRef.current) return;
 
-  const getClass = (type: string) => {
-    switch (type) {
-      case 'portrait':
-        return styles.cardPortrait;
-      case 'landscapeWide':
-        return styles.cardLandscapeWide;
-      default:
-        return styles.cardLandscape;
+    const amount = carouselRef.current.clientWidth * 0.8;
+
+    carouselRef.current.scrollBy({
+      left: dir === 'left' ? -amount : amount,
+      behavior: 'smooth',
+    });
+  };
+
+  // 🔥 DRAG (CORREGIDO)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!carouselRef.current) return;
+
+    setIsDragging(true);
+    setHasDragged(false);
+
+    startX.current = e.pageX;
+    scrollStart.current = carouselRef.current.scrollLeft;
+
+    carouselRef.current.style.cursor = 'grabbing';
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !carouselRef.current) return;
+
+    const dx = e.pageX - startX.current;
+
+    if (Math.abs(dx) > 5) {
+      setHasDragged(true);
+    }
+
+    carouselRef.current.scrollLeft = scrollStart.current - dx * 1.2;
+  };
+
+  const stopDragging = () => {
+    setIsDragging(false);
+    if (carouselRef.current) {
+      carouselRef.current.style.cursor = 'grab';
     }
   };
 
@@ -109,7 +134,7 @@ export const WorksGrid: React.FC = () => {
                 }`}
                 onClick={() => {
                   setActiveFilter(filter);
-                  setCurrentIndex(0); // 🔥 Reset to first item when filtering
+                  setCurrentIndex(0);
                 }}
               >
                 {FILTER_LABELS[filter]}
@@ -118,27 +143,68 @@ export const WorksGrid: React.FC = () => {
           </div>
         </div>
 
-        {/* GRID */}
-        <div ref={carouselRef} className={styles.grid}>
-          {layout.map((item, index) => {
-            const isLast = index === layout.length - 1;
+        {/* CAROUSEL */}
+        <div className={styles.carouselWrapper}>
 
-            return (
-              <div
-                key={item.work!.id}
-                className={isLast ? styles.cardFull : getClass(item.type)}
-              >
+          {canScrollLeft && (
+            <button
+              className={`${styles.navButton} ${styles.navLeft}`}
+              onClick={() => handleScroll('left')}
+              aria-label="Previous"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12.5 15L7.5 10L12.5 5"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
+
+          {canScrollRight && (
+            <button
+              className={`${styles.navButton} ${styles.navRight}`}
+              onClick={() => handleScroll('right')}
+              aria-label="Next"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M7.5 5L12.5 10L7.5 15"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
+
+          <div
+            ref={carouselRef}
+            className={styles.carousel}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={stopDragging}
+            onMouseLeave={stopDragging}
+          >
+            {filteredWorks.map((work) => (
+              <div key={work.id} className={styles.card}>
                 <ProjectCard
-                  work={item.work!}
+                  work={work}
+                  previewMode="static"
                   onClick={() => {
-                    const i = works.findIndex(w => w.id === item.work!.id);
+                    if (hasDragged) return; // 🔥 evita click accidental
+                    const i = works.findIndex(w => w.id === work.id);
                     setCurrentIndex(i);
                     setIsModalOpen(true);
                   }}
                 />
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
 
