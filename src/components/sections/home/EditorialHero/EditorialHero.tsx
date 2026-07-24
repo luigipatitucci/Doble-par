@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import Hls from 'hls.js';
 import styles from './EditorialHero.module.css';
 
 export const EditorialHero: React.FC = () => {
@@ -14,6 +15,88 @@ export const EditorialHero: React.FC = () => {
   const claimLine2Ref = useRef<HTMLSpanElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
+
+  const [isReady, setIsReady] = useState(false);
+
+  // 🔥 Initialize HLS video streaming
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const src = 'https://stream.mux.com/RVyz28xBS5gnLeSh5D3pKxeBHQyShrRI7WlNfymz3P4.m3u8';
+
+    // Check if HLS is natively supported (Safari)
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+      
+      const onLoadedMetadata = () => {
+        video.currentTime = 0.1; // Sync with poster frame
+        
+        // 🔥 START PLAY IMMEDIATELY (video is hidden by opacity: 0)
+        video.play().catch(() => {
+          console.log('Autoplay prevented by browser');
+        });
+
+        // Start checking for quality readiness
+        const checkReady = () => {
+          if (video.readyState >= 3) {
+            setIsReady(true);
+          } else {
+            requestAnimationFrame(checkReady);
+          }
+        };
+
+        checkReady();
+      };
+
+      video.addEventListener('loadedmetadata', onLoadedMetadata);
+
+      return () => {
+        video.removeEventListener('loadedmetadata', onLoadedMetadata);
+      };
+    }
+    // Use hls.js for browsers that don't support HLS natively
+    else if (Hls.isSupported()) {
+      const hls = new Hls({
+        startLevel: 2, // Start at medium quality (avoid ultra-low quality)
+        maxBufferLength: 30,
+        enableWorker: true,
+        lowLatencyMode: false,
+        backBufferLength: 90,
+      });
+
+      hls.loadSource(src);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.currentTime = 0.1; // Sync with poster frame
+
+        video.play().catch(() => {
+          console.log('Autoplay prevented by browser');
+        });
+
+        const checkReady = () => {
+          if (video.readyState >= 3) {
+            setIsReady(true);
+          } else {
+            requestAnimationFrame(checkReady);
+          }
+        };
+
+        checkReady();
+      });
+
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        if (data.fatal) {
+          console.error('HLS fatal error:', data);
+        }
+      });
+
+      return () => {
+        hls.destroy();
+      };
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -162,16 +245,15 @@ export const EditorialHero: React.FC = () => {
       {/* Video fullscreen */}
       <video
         ref={videoRef}
-        className={styles.video}
+        className={`${styles.video} ${isReady ? styles.ready : ''}`}
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
+        poster="https://image.mux.com/RVyz28xBS5gnLeSh5D3pKxeBHQyShrRI7WlNfymz3P4/thumbnail.jpg?time=0.1&width=1920"
         onError={(e) => console.error('EditorialHero video load error:', e)}
-      >
-        <source src="/videos/SUR_1.mp4" type="video/mp4" />
-      </video>
+      />
 
       {/* Overlay gradiente */}
       <div ref={overlayRef} className={styles.overlay} />

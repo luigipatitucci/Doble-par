@@ -27,6 +27,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isTransitioning, setIsTransitioning] = React.useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   const currentWork = works[currentIndex];
 
@@ -85,6 +86,8 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       video.pause();
       video.currentTime = 0;
     });
+    // Reset ready state when changing videos
+    setIsReady(false);
   }, [currentIndex]);
 
   // Manejar tecla ESC
@@ -198,6 +201,26 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       }
     };
   }, [isOpen]);
+
+  // 🔥 Listen for video ready state (canplay event)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleCanPlay = () => {
+      // Optional: Set to a better starting frame
+      if (video.currentTime === 0) {
+        video.currentTime = 0.1;
+      }
+      setIsReady(true);
+    };
+
+    video.addEventListener('canplay', handleCanPlay);
+
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+    };
+  }, [currentIndex]);
 
   // Toggle play/pause
   const togglePlayPause = () => {
@@ -316,12 +339,14 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           <video
             key={currentIndex} // 🔥 Force remount on video change
             ref={videoRef}
-            className={`${styles.video} ${
+            className={`${styles.video} ${isReady ? styles.ready : ''} ${
               currentWork.orientation === 'portrait' ? styles.portrait : styles.landscape
             }`}
             autoPlay
             playsInline
             loop
+            preload="auto"
+            poster={currentWork.poster}
             onClick={togglePlayPause}
           />
 
