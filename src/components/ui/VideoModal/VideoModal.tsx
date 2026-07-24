@@ -40,22 +40,26 @@ export const VideoModal: React.FC<VideoModalProps> = ({
   useEffect(() => {
     if (isOpen && isMounted) {
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
     } else {
       document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
     }
 
     return () => {
       document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
     };
   }, [isOpen, isMounted]);
 
   // 🔥 Enhanced onClose handler to stop video immediately
   const handleClose = useCallback(() => {
-    const video = videoRef.current;
-    if (video) {
+    // Stop ALL videos on the page
+    const videos = document.querySelectorAll('video');
+    videos.forEach((video) => {
       video.pause();
       video.currentTime = 0;
-    }
+    });
     onClose();
   }, [onClose]);
 
@@ -73,6 +77,15 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       isInitialLoad.current = true;
     }
   }, [isOpen]);
+
+  // 🔥 Ensure only one video plays at a time
+  useEffect(() => {
+    const videos = document.querySelectorAll('video');
+    videos.forEach((video) => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  }, [currentIndex]);
 
   // Manejar tecla ESC
   useEffect(() => {
@@ -248,7 +261,14 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       {/* Botón cerrar */}
       <button
         className={styles.close}
-        onClick={handleClose}
+        onClick={(e) => {
+          e.stopPropagation();
+          handleClose();
+        }}
+        onTouchEnd={(e) => {
+          e.stopPropagation();
+          handleClose();
+        }}
         aria-label="Cerrar modal"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -265,7 +285,13 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       {works.length > 1 && (
         <button
           className={`${styles.nav} ${styles.prev}`}
-          onClick={prev}
+          onClick={(e) => {
+            e.stopPropagation();
+            prev();
+          }}
+          onTouchEnd={(e) => {
+            e.stopPropagation();
+          }}
           aria-label="Video anterior"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -288,7 +314,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           className={styles.videoWrapper}
         >
           <video
-            key={currentWork.video} // 🔥 Force remount on video change
+            key={currentIndex} // 🔥 Force remount on video change
             ref={videoRef}
             className={`${styles.video} ${
               currentWork.orientation === 'portrait' ? styles.portrait : styles.landscape
@@ -338,7 +364,13 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       {works.length > 1 && (
         <button
           className={`${styles.nav} ${styles.next}`}
-          onClick={next}
+          onClick={(e) => {
+            e.stopPropagation();
+            next();
+          }}
+          onTouchEnd={(e) => {
+            e.stopPropagation();
+          }}
           aria-label="Video siguiente"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

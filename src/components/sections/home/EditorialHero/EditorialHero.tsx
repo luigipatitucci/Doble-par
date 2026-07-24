@@ -193,7 +193,7 @@ export const EditorialHero: React.FC = () => {
         </h1>
 
         <p ref={descriptionRef} className={styles.description}>
-          DOBLEPAR is a creative and audiovisual studio building distinctive visual universes through storytelling, creative direction, AI, and live-action production—across both physical and digital experiences.
+          DOBLEPAR is a creative and audiovisual studio that turns brand chaos into curated visual universes — combining branding, technology, and communication through storytelling, AI, and live-act.
         </p>
 
         <a ref={ctaRef} href="#manifesto" className={styles.cta}>

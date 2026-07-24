@@ -22,7 +22,15 @@ body {
   line-height: var(--line-height-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden !important;
+  overflow-x: hidden !important;
+}
+
+/* Hide navbar when VideoModal is open */
+body.modal-open .navbar {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
 }
 
 /* Main content area */

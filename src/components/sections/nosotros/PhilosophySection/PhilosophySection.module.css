@@ -1,10 +1,12 @@
 .philosophy {
   padding: var(--section-padding) 0;
+  padding-left: clamp(6vw, 8vw, 10vw);
+  padding-right: clamp(6vw, 8vw, 10vw);
   background: var(--color-bg-primary);
 }
 
 .container {
-  max-width: var(--container-max-width);
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }

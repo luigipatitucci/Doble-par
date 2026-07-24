@@ -50,21 +50,17 @@ export const ManifestoBlock: React.FC = () => {
             <p ref={(el) => {
     paragraphsRef.current[0] = el;
   }}>
-              DOBLEPAR sees brands as <strong>evolving ecosystems</strong> capable of expanding 
-              through images, experiences, spaces, entertainment, narratives, technology and community.
+              DOBLEPAR sees brands as <strong>evolving ecosystems</strong> — and every ecosystem needs direction. We bring branding, communication, and full creative direction together with content production, experiences, technology, and community, all expanding as one living universe.
             </p>
             <p ref={(el) => {
     paragraphsRef.current[1] = el;
   }}>
-              We don't build isolated pieces: <strong>we design connections</strong>. We work across 
-              disciplines, formats and languages: film, music, experiences, narrative, 
-              technology, art and entertainment.
+              We don't build isolated pieces: <strong>we curate and build brand universes</strong>. From digital content and advertising to experiences, narrative, and technology — every discipline works to keep one living story alive.
             </p>
             <p ref={(el) => {
     paragraphsRef.current[2] = el;
   }}>
-              Every project is an opportunity to explore new ways of telling stories, 
-              creating visual identities and building experiences that transcend the conventional.
+              Every project is a chance to bring order to the chaos — sharper brand universes, stories that stay alive, and communication that goes beyond the expected.
             </p>
           </div>
         </div>

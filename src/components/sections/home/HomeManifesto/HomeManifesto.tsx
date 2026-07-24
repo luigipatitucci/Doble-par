@@ -69,7 +69,7 @@ export const HomeManifesto: React.FC = () => {
 
           {/* Statement principal */}
           <h2 ref={statementRef} className={styles.statement}>
-            We don’t create isolated pieces — <span className={styles.highlight}>we build connected visual worlds through AI, live-action production, and physical and digital experiences.</span>
+            Most brands don't need more content — they need a cure for the chaos. <span className={styles.highlight}>We offer curated creative direction that connects branding, technology, and experience into one visual universe.</span>
           </h2>
         </div>
       </div>

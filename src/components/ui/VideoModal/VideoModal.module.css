@@ -9,8 +9,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10002; /* Above navbar (10000) and navbar menu (10001) */
+  z-index: 99999;
   animation: fadeIn 0.3s ease;
+  touch-action: manipulation;
 }
 
 @keyframes fadeIn {
@@ -23,7 +24,7 @@
 }
 
 .close {
-  position: absolute;
+  position: fixed;
   top: 24px;
   right: 24px;
   width: 44px;
@@ -36,7 +37,9 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  z-index: 10003; /* Above overlay */
+  z-index: 100000;
+  pointer-events: auto;
+  touch-action: manipulation;
   border-radius: 50%;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -66,6 +69,10 @@
   padding-right: 24px;
   animation: scaleIn 0.4s ease-out;
   transform: translateY(-10px); /* Slight upward offset for balance */
+  touch-action: manipulation;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
 }
 
 /* 🔥 VIDEO WRAPPER - Constrains video size */
@@ -81,6 +88,7 @@
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   transition: opacity 0.2s ease;
+  pointer-events: auto;
 }
 
 @keyframes scaleIn {
@@ -99,28 +107,10 @@
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: 100%;
+  max-height: 80vh;
   display: block;
   object-fit: contain;
   border-radius: 12px;
-}
-
-/* Landscape videos - fit width */
-.video.landscape {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-/* Portrait videos - fit height, center horizontally */
-.video.portrait {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
 }
 
 .video:hover {
@@ -212,7 +202,7 @@
 }
 
 .nav {
-  position: absolute;
+  position: fixed;
   top: 50%;
   transform: translateY(-50%);
   width: 44px;
@@ -227,7 +217,9 @@
   cursor: pointer;
   border-radius: 50%;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 10003; /* Above overlay */
+  z-index: 99999;
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .nav:hover {

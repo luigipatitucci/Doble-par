@@ -6,22 +6,22 @@ export const PhilosophySection: React.FC = () => {
     {
       title: 'Film & Visual',
       description:
-        'We create cinematic visual work through AI and live-action production, exploring new forms of storytelling across physical and digital worlds.',
+        'Cinematic content, powered by AI and live-action — built to move across every format.',
     },
     {
       title: 'Experiences',
       description:
-        'We design brand activations and immersive spaces that connect with audiences in memorable ways.',
+        'Brand activations and immersive spaces designed to turn audiences into community.',
     },
     {
-      title: 'Narrative',
+      title: 'Branding & Narrative',
       description:
-        'We build coherent and expandable narrative universes that transcend platforms and formats.',
+        'One brand story, told coherently — across every platform, every format, every touchpoint.',
     },
     {
       title: 'Technology',
       description:
-        'We use AI and cutting-edge tools to constantly innovate in our creative processes.',
+        'AI and emerging tech, applied with strategy — not novelty for its own sake.',
     },
   ];
 
