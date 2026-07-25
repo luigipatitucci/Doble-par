@@ -80,7 +80,6 @@ export const HomeSelectedWork: React.FC = () => {
 
     // FILA 4 (intercalado 👇)
     { work: landscapes[4], type: 'landscapeWide' },
-    { work: portraits[4], type: 'portrait' },
     { work: landscapes[5], type: 'landscape' },
 
     // FILA 5 (ritmo final 👇)

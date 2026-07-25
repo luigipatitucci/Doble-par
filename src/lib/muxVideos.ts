@@ -13,6 +13,7 @@ export const muxVideos = {
   ugc: "bdksLCOEiQpCCjIDSdP02Ma34as6N02hsWeoCsYgWXnZI",
   gravity: "sECHGEapCjw021VsTVZYug02sN4MYe02UYJ4dPYv89W2Mg",
   sour: "VqVA9yNzB02KbTLX6MAUq01n2Prpm00L7XacSq8YFxWAvg",
+  esquinita: "4hssremYBZQHLPFLOy02A6b8Ionu02tJEi3Dj5Rv01jAvE"
 };
 
 export const getMuxVideo = (id: string) => ({
