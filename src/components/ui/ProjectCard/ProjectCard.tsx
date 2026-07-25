@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { Work } from '@/types/work';
+import { setupHls, isHlsVideo } from '@/lib/hlsHelper';
 import styles from './ProjectCard.module.css';
 
 interface ProjectCardProps {
@@ -20,6 +21,34 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   previewMode = 'static',
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsCleanupRef = useRef<(() => void) | null>(null);
+
+  // 🔥 Setup HLS if needed
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const isHls = isHlsVideo(work.video);
+    
+    if (isHls) {
+      hlsCleanupRef.current = setupHls(video, work.video, {
+        startLevel: 2,
+        onError: (error) => {
+          console.error(`HLS error for work ID ${work.id}:`, error);
+        },
+      });
+    } else {
+      // Regular MP4 - set source directly
+      video.src = work.video;
+    }
+
+    return () => {
+      if (hlsCleanupRef.current) {
+        hlsCleanupRef.current();
+        hlsCleanupRef.current = null;
+      }
+    };
+  }, [work.video, work.id]);
 
   const handleMouseEnter = () => {
     if (previewMode === 'hover' && videoRef.current) {
@@ -43,6 +72,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         loop={previewMode === 'hover'}
         playsInline
         preload="metadata"
+        poster={work.poster}
         aria-label={`Video of ${work.title} - ${work.description}`}
         onLoadedMetadata={(event) => {
           const video = event.currentTarget;
@@ -64,9 +94,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
           console.error('Error details:', event);
         }}
-      >
-        <source src={work.video} type="video/mp4" />
-      </video>
+      />
+
 
       <div className={styles.overlay} />
 

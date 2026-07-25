@@ -10,7 +10,7 @@ export interface Work {
   category: WorkCategory;
   description: string;
   video: string;
-  poster?: string;
+  poster: string; // 🔥 Required field for thumbnail
   orientation: WorkOrientation;
   year: string;
   featured: boolean;

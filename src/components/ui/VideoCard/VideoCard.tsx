@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Work } from '@/types/work';
+import { setupHls, isHlsVideo } from '@/lib/hlsHelper';
 import styles from './VideoCard.module.css';
 
 interface VideoCardProps {
@@ -13,6 +14,36 @@ export const VideoCard: React.FC<VideoCardProps> = ({ work, priority = false }) 
   const [isHovered, setIsHovered] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsCleanupRef = useRef<(() => void) | null>(null);
+
+  // 🔥 Setup HLS if needed
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const videoUrl = work.id === '3' ? `${work.video}#t=1` : work.video;
+    const isHls = isHlsVideo(videoUrl);
+    
+    if (isHls) {
+      hlsCleanupRef.current = setupHls(video, videoUrl, {
+        startLevel: 2,
+        onError: (error) => {
+          console.error(`HLS error for work ID ${work.id}:`, error);
+          setIsLoaded(true); // Show card even if HLS fails
+        },
+      });
+    } else {
+      // Regular MP4 - set source directly
+      video.src = videoUrl;
+    }
+
+    return () => {
+      if (hlsCleanupRef.current) {
+        hlsCleanupRef.current();
+        hlsCleanupRef.current = null;
+      }
+    };
+  }, [work.video, work.id]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -51,8 +82,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ work, priority = false }) 
         <video
           ref={videoRef}
           className={styles.video}
-          src={work.id === '3' ? `${work.video}#t=1` : work.video}
-          {...(work.poster && { poster: work.poster })}
+          poster={work.poster}
           loop
           muted
           playsInline

@@ -14,10 +14,7 @@ const navigationLinks = [
 ];
 
 const socialLinks = [
-  { name: 'Instagram', href: '#', ariaLabel: 'Visit DOBLEPAR Instagram profile' },
-  { name: 'Behance', href: '#', ariaLabel: 'Visit DOBLEPAR Behance profile' },
-  { name: 'LinkedIn', href: '#', ariaLabel: 'Visit DOBLEPAR LinkedIn profile' },
-  { name: 'YouTube', href: '#', ariaLabel: 'Visit DOBLEPAR YouTube channel' },
+  { name: 'Instagram', href: 'https://www.instagram.com/dobleparcreatives', ariaLabel: 'Visit DOBLEPAR Instagram profile' },
 ];
 
 export const Footer: React.FC = () => {
@@ -74,8 +71,8 @@ export const Footer: React.FC = () => {
               <Image 
                 src="/images/logo.png" 
                 alt="DOBLEPAR" 
-                width={120} 
-                height={40}
+                width={160} 
+                height={53}
               />
             </div>
             <p className={styles.description}>
@@ -123,15 +120,21 @@ export const Footer: React.FC = () => {
             <ul className={styles.linkList}>
               <li>
                 <a 
-                  href="mailto:hola@doblepar.com" 
+                  href="mailto:memi@dobleparcreatives.com" 
                   className={styles.link}
-                  aria-label="Send email to DOBLEPAR"
+                  aria-label="Send email to Memi at DOBLEPAR"
                 >
-                  hola@doblepar.com
+                  memi@dobleparcreatives.com
                 </a>
               </li>
               <li>
-                <span className={styles.text}>Buenos Aires, Argentina</span>
+                <a 
+                  href="mailto:delfina@dobleparcreatives.com" 
+                  className={styles.link}
+                  aria-label="Send email to Delfina at DOBLEPAR"
+                >
+                  delfina@dobleparcreatives.com
+                </a>
               </li>
             </ul>
           </div>

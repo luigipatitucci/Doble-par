@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Work } from '@/types/work';
+import { setupHls, isHlsVideo } from '@/lib/hlsHelper';
 import styles from './VideoModal.module.css';
 
 interface VideoModalProps {
@@ -24,12 +25,26 @@ export const VideoModal: React.FC<VideoModalProps> = ({
   const overlayRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const isInitialLoad = useRef(true);
+  const hlsCleanupRef = useRef<(() => void) | null>(null);
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isTransitioning, setIsTransitioning] = React.useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [isReady, setIsReady] = useState(false);
 
   const currentWork = works[currentIndex];
+
+  // 🔥 DEBUG: Log work data when modal opens or work changes
+  useEffect(() => {
+    if (isOpen && currentWork) {
+      console.log('🎬 VideoModal - Current work:', {
+        id: currentWork.id,
+        title: currentWork.title,
+        video: currentWork.video,
+        poster: currentWork.poster,
+        hasPoster: !!currentWork.poster,
+        hasVideo: !!currentWork.video,
+      });
+    }
+  }, [isOpen, currentIndex, currentWork]);
 
   // Check if component is mounted (for SSR safety)
   useEffect(() => {
@@ -86,8 +101,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       video.pause();
       video.currentTime = 0;
     });
-    // Reset ready state when changing videos
-    setIsReady(false);
   }, [currentIndex]);
 
   // Manejar tecla ESC
@@ -136,24 +149,62 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     if (!video || !wrapper || !isOpen) return;
 
     const changeVideo = async () => {
+      // 🔥 Cleanup previous HLS instance
+      if (hlsCleanupRef.current) {
+        hlsCleanupRef.current();
+        hlsCleanupRef.current = null;
+      }
+
       // 🔥 Stop previous video before changing
       if (video.src) {
         video.pause();
         video.currentTime = 0;
       }
 
+      const videoUrl = currentWork.id === '3' ? `${currentWork.video}#t=1` : currentWork.video;
+      const isHls = isHlsVideo(videoUrl);
+
       // Si es la carga inicial, no hacer transición
       if (isInitialLoad.current) {
-        video.src = currentWork.id === '3' ? `${currentWork.video}#t=1` : currentWork.video;
-        video.load();
-        console.log('Initial load - Loading video in modal:', currentWork.video, 'for work:', currentWork.title);
-        try {
-          await video.play();
-          setIsPlaying(true);
-        } catch (error) {
-          console.error('Initial load - Video play error in modal:', error, 'video:', currentWork.video);
-          setIsPlaying(false);
+        console.log('Initial load - Loading video in modal:', videoUrl, 'for work:', currentWork.title);
+        
+        if (isHls) {
+          // HLS video
+          hlsCleanupRef.current = setupHls(video, videoUrl, {
+            startLevel: 2,
+            onReady: () => {
+              // Force play after a small delay to ensure HLS is fully attached
+              setTimeout(() => {
+                video.muted = true;
+                video.playsInline = true;
+                video.play().catch((error) => {
+                  console.error('Initial load - HLS video play error:', error);
+                  setIsPlaying(false);
+                });
+              }, 100);
+            },
+            onError: (error) => {
+              console.error('Initial load - HLS error:', error);
+            },
+          });
+        } else {
+          // Regular MP4 video
+          video.src = videoUrl;
+          video.load();
+          
+          // Ensure autoplay attributes are set
+          video.muted = true;
+          video.playsInline = true;
+          
+          try {
+            await video.play();
+            setIsPlaying(true);
+          } catch (error) {
+            console.error('Initial load - Video play error:', error);
+            setIsPlaying(false);
+          }
         }
+        
         isInitialLoad.current = false;
         return;
       }
@@ -165,24 +216,54 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       // Esperar fade out
       await new Promise(resolve => setTimeout(resolve, 200));
       
-      // Cambiar src y preparar video
-      video.src = currentWork.id === '3' ? `${currentWork.video}#t=1` : currentWork.video;
-      video.load();
+      console.log('Loading video in modal:', videoUrl, 'for work:', currentWork.title);
       
-      // Log video path for debugging
-      console.log('Loading video in modal:', currentWork.video, 'for work:', currentWork.title);
-      
-      try {
-        await video.play();
-        setIsPlaying(true);
-      } catch (error) {
-        console.error('Video play error in modal:', error, 'video:', currentWork.video);
-        setIsPlaying(false);
+      if (isHls) {
+        // HLS video
+        hlsCleanupRef.current = setupHls(video, videoUrl, {
+          startLevel: 2,
+          onReady: () => {
+            // Force play after a small delay to ensure HLS is fully attached
+            setTimeout(() => {
+              video.muted = true;
+              video.playsInline = true;
+              video.play().catch((error) => {
+                console.error('HLS video play error:', error);
+                setIsPlaying(false);
+              });
+            }, 100);
+            
+            // Fade in
+            wrapper.style.opacity = '1';
+            setIsTransitioning(false);
+          },
+          onError: (error) => {
+            console.error('HLS error:', error);
+            wrapper.style.opacity = '1';
+            setIsTransitioning(false);
+          },
+        });
+      } else {
+        // Regular MP4 video
+        video.src = videoUrl;
+        video.load();
+        
+        // Ensure autoplay attributes are set
+        video.muted = true;
+        video.playsInline = true;
+        
+        try {
+          await video.play();
+          setIsPlaying(true);
+        } catch (error) {
+          console.error('Video play error:', error);
+          setIsPlaying(false);
+        }
+        
+        // Fade in
+        wrapper.style.opacity = '1';
+        setIsTransitioning(false);
       }
-      
-      // Fade in
-      wrapper.style.opacity = '1';
-      setIsTransitioning(false);
     };
 
     changeVideo();
@@ -194,6 +275,12 @@ export const VideoModal: React.FC<VideoModalProps> = ({
 
     // Cleanup function runs when modal closes or component unmounts
     return () => {
+      // Cleanup HLS instance
+      if (hlsCleanupRef.current) {
+        hlsCleanupRef.current();
+        hlsCleanupRef.current = null;
+      }
+      
       if (video) {
         video.pause();
         video.currentTime = 0;
@@ -201,26 +288,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       }
     };
   }, [isOpen]);
-
-  // 🔥 Listen for video ready state (canplay event)
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleCanPlay = () => {
-      // Optional: Set to a better starting frame
-      if (video.currentTime === 0) {
-        video.currentTime = 0.1;
-      }
-      setIsReady(true);
-    };
-
-    video.addEventListener('canplay', handleCanPlay);
-
-    return () => {
-      video.removeEventListener('canplay', handleCanPlay);
-    };
-  }, [currentIndex]);
 
   // Toggle play/pause
   const togglePlayPause = () => {
@@ -335,20 +402,21 @@ export const VideoModal: React.FC<VideoModalProps> = ({
         <div 
           ref={videoWrapperRef} 
           className={styles.videoWrapper}
+          data-orientation={currentWork.orientation}
         >
-          <video
-            key={currentIndex} // 🔥 Force remount on video change
-            ref={videoRef}
-            className={`${styles.video} ${isReady ? styles.ready : ''} ${
-              currentWork.orientation === 'portrait' ? styles.portrait : styles.landscape
-            }`}
-            autoPlay
-            playsInline
-            loop
-            preload="auto"
-            poster={currentWork.poster}
-            onClick={togglePlayPause}
-          />
+          {/* Fixed aspect ratio media container */}
+          <div className={styles.modalMedia}>
+            <video
+              ref={videoRef}
+              className={styles.video}
+              autoPlay
+              muted
+              playsInline
+              loop
+              preload="auto"
+              onClick={togglePlayPause}
+            />
+          </div>
 
           {/* Info del video - overlay dentro */}
           <div className={styles.videoInfo}>
