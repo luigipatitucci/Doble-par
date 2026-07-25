@@ -11,6 +11,7 @@ interface ButtonProps {
   href?: string;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -21,6 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
   href,
   type = 'button',
   className = '',
+  disabled = false,
 }) => {
   const classNames = `${styles.button} ${styles[variant]} ${styles[size]} ${className}`;
 
@@ -33,7 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classNames}>
+    <button type={type} onClick={onClick} className={classNames} disabled={disabled}>
       {children}
     </button>
   );

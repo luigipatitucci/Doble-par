@@ -68,6 +68,61 @@
   min-height: 120px;
 }
 
+/* Success & Error Messages */
+.successMessage,
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-lg);
+  animation: slideIn 0.3s ease-out;
+}
+
+.successMessage {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: rgb(34, 197, 94);
+}
+
+.errorMessage {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: rgb(239, 68, 68);
+}
+
+.successMessage svg,
+.errorMessage svg {
+  flex-shrink: 0;
+}
+
+.successMessage p,
+.errorMessage p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Disabled state for form elements */
+.input:disabled,
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
   .formSection {
     padding: var(--spacing-2xl) 0;
@@ -79,5 +134,11 @@
 
   .title {
     font-size: var(--font-size-2xl);
+  }
+  
+  .successMessage,
+  .errorMessage {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-sm);
   }
 }

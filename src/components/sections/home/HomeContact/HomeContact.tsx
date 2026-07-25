@@ -159,10 +159,10 @@ export const HomeContact: React.FC = () => {
         {/* Email */}
         <a 
           ref={emailRef} 
-          href="mailto:hola@doblepar.com" 
+          href="mailto:memi@dobleparcreatives.com" 
           className={styles.email}
         >
-          hola@doblepar.com
+          memi@dobleparcreatives.com
         </a>
       </div>
     </section>

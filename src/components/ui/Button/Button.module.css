@@ -61,6 +61,13 @@
   font-size: var(--font-size-lg);
 }
 
+/* Disabled state */
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   .large {
     padding: var(--spacing-sm) var(--spacing-lg);
