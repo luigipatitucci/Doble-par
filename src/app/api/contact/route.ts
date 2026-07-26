@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     // Send email using Resend
     const response = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'DOBLEPAR Creatives memi@dobleparcreatives.com - delfina@dobleparcreatives.com',
       to: [
         'memi@dobleparcreatives.com',
 'delfina@dobleparcreatives.com',
