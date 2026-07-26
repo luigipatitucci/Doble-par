@@ -13,7 +13,6 @@ export const HomeContact: React.FC = () => {
   const titleLine2Ref = useRef<HTMLSpanElement>(null);
   const titleLine3Ref = useRef<HTMLSpanElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
-  const emailRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -27,9 +26,8 @@ export const HomeContact: React.FC = () => {
       const titleLine2 = titleLine2Ref.current;
       const titleLine3 = titleLine3Ref.current;
       const cta = ctaRef.current;
-      const email = emailRef.current;
 
-      if (!section || !label || !titleLine1 || !titleLine2 || !titleLine3 || !cta || !email) return;
+      if (!section || !label || !titleLine1 || !titleLine2 || !titleLine3 || !cta) return;
 
       const ctx = gsap.context(() => {
         // Verificar si el usuario prefiere reducir movimiento
@@ -37,7 +35,7 @@ export const HomeContact: React.FC = () => {
 
         if (prefersReducedMotion) {
           // Mostrar todo directamente sin animación
-          gsap.set([label, titleLine1, titleLine2, titleLine3, cta, email], {
+          gsap.set([label, titleLine1, titleLine2, titleLine3, cta], {
             opacity: 1,
             y: 0
           });
@@ -89,14 +87,6 @@ export const HomeContact: React.FC = () => {
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
           '-=0.3'
-        );
-
-        // 5. Email aparece
-        tl.fromTo(
-          email,
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-          '-=0.4'
         );
       }, section);
 
@@ -155,15 +145,6 @@ export const HomeContact: React.FC = () => {
             />
           </svg>
         </Link>
-
-        {/* Email */}
-        <a 
-          ref={emailRef} 
-          href="mailto:memi@dobleparcreatives.com" 
-          className={styles.email}
-        >
-          memi@dobleparcreatives.com
-        </a>
       </div>
     </section>
   );

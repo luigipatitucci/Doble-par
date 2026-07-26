@@ -1,6 +1,7 @@
 import React from 'react';
 import { AboutHero } from '@/components/sections/nosotros/AboutHero/AboutHero';
 import { ManifestoBlock } from '@/components/sections/nosotros/ManifestoBlock/ManifestoBlock';
+import { FoundersBlock } from '@/components/sections/nosotros/FoundersBlock/FoundersBlock';
 import { PhilosophySection } from '@/components/sections/nosotros/PhilosophySection/PhilosophySection';
 
 export const metadata = {
@@ -14,6 +15,7 @@ export default function NosotrosPage() {
     <>
       <AboutHero />
       <ManifestoBlock />
+      <FoundersBlock />
       <PhilosophySection />
     </>
   );

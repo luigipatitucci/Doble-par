@@ -9,16 +9,16 @@ import styles from './WorksGrid.module.css';
 type FilterCategory =
   | 'All'
   | 'Commercials'
-  | 'Brand Films'
   | 'Social & Digital'
+  | 'Fashion Film'
   | 'Experiences'
   | 'Narrative Films';
 
 const FILTER_LABELS: Record<FilterCategory, string> = {
   All: 'All',
   Commercials: 'Commercials',
-  'Brand Films': 'Brand Films',
   'Social & Digital': 'Social & Digital',
+  'Fashion Film': 'Fashion Film',
   Experiences: 'Experiences',
   'Narrative Films': 'Narrative Films',
 };
