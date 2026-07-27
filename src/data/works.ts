@@ -125,7 +125,7 @@ export const works: Work[] = [
   {
     id: '11',
     slug: 'un-viaje-de-pasion',
-    title: 'Brand Experience',
+    title: 'Narrative Film',
     client: 'Un viaje de Pasión',
     category: 'Narrative Films',
     description: 'Creative Direction · AI Production · Post-Production',
