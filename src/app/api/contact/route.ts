@@ -28,10 +28,10 @@ export async function POST(req: Request) {
 
     // Send email using Resend
     const response = await resend.emails.send({
-      from: 'DOBLEPAR Creatives memi@dobleparcreatives.com - delfina@dobleparcreatives.com',
+      from: 'DOBLEPAR Creatives <noreply@dobleparcreative.com>',
       to: [
-        'memi@dobleparcreatives.com',
-'delfina@dobleparcreatives.com',
+        'jluigi.patitucci@gmail.com',
+
       ],
       subject: `New contact from ${name}`,
       replyTo: email,
