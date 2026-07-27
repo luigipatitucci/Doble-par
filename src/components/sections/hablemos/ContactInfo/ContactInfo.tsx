@@ -8,20 +8,11 @@ export const ContactInfo: React.FC = () => {
         <div className={styles.grid}>
           <div className={styles.infoCard}>
             <h3 className={styles.cardTitle}>Email</h3>
-            <a href="mailto:hola@doblepar.com" className={styles.cardValue}>
-              hola@doblepar.com
+            <a href="mailto:memi@dobleparcreatives.com" className={styles.cardValue}>
+              memi@dobleparcreatives.com<br />
             </a>
-          </div>
-
-          <div className={styles.infoCard}>
-            <h3 className={styles.cardTitle}>WhatsApp</h3>
-            <a
-              href="https://wa.me/5491112345678"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.cardValue}
-            >
-              +54 9 11 1234-5678
+            <a href="mailto:delfina@dobleparcreatives.com" className={styles.cardValue}>
+              delfina@dobleparcreatives.com<br />
             </a>
           </div>
 
@@ -40,30 +31,6 @@ export const ContactInfo: React.FC = () => {
                 rel="noopener noreferrer"
               >
                 Instagram
-              </a>
-              <a
-                href="#"
-                className={styles.socialLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Behance
-              </a>
-              <a
-                href="#"
-                className={styles.socialLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="#"
-                className={styles.socialLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                YouTube
               </a>
             </div>
           </div>
