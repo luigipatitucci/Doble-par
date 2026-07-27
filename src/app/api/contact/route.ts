@@ -30,7 +30,8 @@ export async function POST(req: Request) {
     const response = await resend.emails.send({
       from: 'DOBLEPAR Creatives <noreply@dobleparcreative.com>',
       to: [
-        'jluigi.patitucci@gmail.com',
+                'memi@dobleparcreatives.com',
+'delfina@dobleparcreatives.com',
 
       ],
       subject: `New contact from ${name}`,
