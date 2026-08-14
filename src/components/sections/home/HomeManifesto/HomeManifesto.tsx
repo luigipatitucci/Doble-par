@@ -69,7 +69,7 @@ export const HomeManifesto: React.FC = () => {
 
           {/* Statement principal */}
           <h2 ref={statementRef} className={styles.statement}>
-            Most brands don't need more content — they need a cure for the chaos. <span className={styles.highlight}>We offer curated creative direction that connects branding, technology, and experience into one visual universe.</span>
+            Most brands don’t need more content — they need clarity. <span className={styles.highlight}>We turn scattered ideas into bold concepts, coherent narratives, and visual worlds designed to connect, evolve, and leave a mark.</span>
           </h2>
         </div>
       </div>

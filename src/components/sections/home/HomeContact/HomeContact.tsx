@@ -145,6 +145,9 @@ export const HomeContact: React.FC = () => {
             />
           </svg>
         </Link>
+
+        {/* Email */}
+
       </div>
     </section>
   );

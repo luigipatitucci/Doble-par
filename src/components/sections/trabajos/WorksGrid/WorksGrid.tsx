@@ -195,15 +195,15 @@ export const WorksGrid: React.FC = () => {
             {filteredWorks.map((work) => (
               <div key={work.id} className={styles.card}>
                 <ProjectCard
-                  work={work}
-                  previewMode="static"
-                  onClick={() => {
-                    if (hasDragged) return; // 🔥 evita click accidental
-                    const i = works.findIndex(w => w.id === work.id);
-                    setCurrentIndex(i);
-                    setIsModalOpen(true);
-                  }}
-                />
+  work={work}
+  previewMode="hover"
+  onClick={() => {
+    if (hasDragged) return;
+    const i = works.findIndex(w => w.id === work.id);
+    setCurrentIndex(i);
+    setIsModalOpen(true);
+  }}
+/>
               </div>
             ))}
           </div>

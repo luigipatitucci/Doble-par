@@ -9,8 +9,9 @@ export interface Work {
   client: string;
   category: WorkCategory;
   description: string;
-  video: string;
-  poster: string; // 🔥 Required field for thumbnail
+  muxPlaybackId: string;
+  fallbackVideo?: string;
+  poster: string;
   orientation: WorkOrientation;
   year: string;
   featured: boolean;

@@ -2,12 +2,13 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import Hls from 'hls.js';
+import { SafeVideo } from '@/components/ui/SafeVideo';
+import { muxVideos } from '@/lib/muxVideos';
 import styles from './EditorialHero.module.css';
 
 export const EditorialHero: React.FC = () => {
   const heroRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
@@ -17,86 +18,6 @@ export const EditorialHero: React.FC = () => {
   const ctaRef = useRef<HTMLAnchorElement>(null);
 
   const [isReady, setIsReady] = useState(false);
-
-  // 🔥 Initialize HLS video streaming
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const src = 'https://stream.mux.com/RVyz28xBS5gnLeSh5D3pKxeBHQyShrRI7WlNfymz3P4.m3u8';
-
-    // Check if HLS is natively supported (Safari)
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = src;
-      
-      const onLoadedMetadata = () => {
-        video.currentTime = 0.1; // Sync with poster frame
-        
-        // 🔥 START PLAY IMMEDIATELY (video is hidden by opacity: 0)
-        video.play().catch(() => {
-          console.log('Autoplay prevented by browser');
-        });
-
-        // Start checking for quality readiness
-        const checkReady = () => {
-          if (video.readyState >= 3) {
-            setIsReady(true);
-          } else {
-            requestAnimationFrame(checkReady);
-          }
-        };
-
-        checkReady();
-      };
-
-      video.addEventListener('loadedmetadata', onLoadedMetadata);
-
-      return () => {
-        video.removeEventListener('loadedmetadata', onLoadedMetadata);
-      };
-    }
-    // Use hls.js for browsers that don't support HLS natively
-    else if (Hls.isSupported()) {
-      const hls = new Hls({
-        startLevel: 2, // Start at medium quality (avoid ultra-low quality)
-        maxBufferLength: 30,
-        enableWorker: true,
-        lowLatencyMode: false,
-        backBufferLength: 90,
-      });
-
-      hls.loadSource(src);
-      hls.attachMedia(video);
-
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.currentTime = 0.1; // Sync with poster frame
-
-        video.play().catch(() => {
-          console.log('Autoplay prevented by browser');
-        });
-
-        const checkReady = () => {
-          if (video.readyState >= 3) {
-            setIsReady(true);
-          } else {
-            requestAnimationFrame(checkReady);
-          }
-        };
-
-        checkReady();
-      });
-
-      hls.on(Hls.Events.ERROR, (event, data) => {
-        if (data.fatal) {
-          console.error('HLS fatal error:', data);
-        }
-      });
-
-      return () => {
-        hls.destroy();
-      };
-    }
-  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -243,17 +164,18 @@ export const EditorialHero: React.FC = () => {
   return (
     <section ref={heroRef} className={styles.hero}>
       {/* Video fullscreen */}
-      <video
-        ref={videoRef}
-        className={`${styles.video} ${isReady ? styles.ready : ''}`}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        poster="https://image.mux.com/RVyz28xBS5gnLeSh5D3pKxeBHQyShrRI7WlNfymz3P4/thumbnail.jpg?time=0.1&width=1920"
-        onError={(e) => console.error('EditorialHero video load error:', e)}
-      />
+      <div ref={videoRef} className={`${styles.video} ${isReady ? styles.ready : ''}`}>
+        <SafeVideo
+          muxPlaybackId={muxVideos.sur}
+          poster={`https://image.mux.com/${muxVideos.sur}/thumbnail.jpg?time=0.1&width=1920`}
+          autoPlay
+          loop
+          muted
+          playsInline
+          controls={false}
+          onLoadedData={() => setIsReady(true)}
+        />
+      </div>
 
       {/* Overlay gradiente */}
       <div ref={overlayRef} className={styles.overlay} />
@@ -275,7 +197,7 @@ export const EditorialHero: React.FC = () => {
         </h1>
 
         <p ref={descriptionRef} className={styles.description}>
-          DOBLEPAR is a creative and audiovisual studio that turns brand chaos into curated visual universes — combining branding, technology, and communication through storytelling, AI, and live-act.
+          DOBLEPAR is a contemporary creative and audiovisual studio that transforms brand chaos into curated visual universes. We specialize in creative direction, advertising, branding, integrated production, and campaign development—shaping powerful concepts through storytelling, technology, AI, and live action.
         </p>
 
         <a ref={ctaRef} href="#manifesto" className={styles.cta}>

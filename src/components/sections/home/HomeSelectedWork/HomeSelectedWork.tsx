@@ -127,18 +127,13 @@ export const HomeSelectedWork: React.FC = () => {
           {layout.map((item, index) => {
             const isLast = index === layout.length - 1;
 
-            // Only the video with id '3' starts at second 1
-            const workToRender = item.work?.id === '3'
-              ? { ...item.work, video: `${item.work.video}#t=1` }
-              : item.work!;
-
             return (
               <div
                 key={item.work!.id}
                 className={isLast ? styles.cardFull : getClass(item.type)}
               >
                 <ProjectCard
-                  work={workToRender}
+                  work={item.work!}
                   featured={item.type === 'featured'}
                   previewMode="hover"
                   onClick={() => {

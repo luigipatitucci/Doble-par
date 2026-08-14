@@ -10,10 +10,12 @@ export const works: Work[] = [
     category: 'Fashion Film',
     description: 'Art Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.monCheri),
+    fallbackVideo: '/videos/fallback/mon-cheri.mp4',
     orientation: 'landscape',
     year: '2026',
     featured: true,
   },
+
   {
     id: '2',
     slug: 'frizze-pasion',
@@ -22,10 +24,12 @@ export const works: Work[] = [
     category: 'Social & Digital',
     description: 'Creative Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.frizze1),
+    fallbackVideo: '/videos/fallback/frizze-pasion.mp4',
     orientation: 'portrait',
     year: '2026',
     featured: false,
   },
+
   {
     id: '3',
     slug: 'frizze-pasion',
@@ -33,11 +37,16 @@ export const works: Work[] = [
     client: 'Frizze',
     category: 'Social & Digital',
     description: 'Creative Direction · AI Production · Post-Production',
-    ...getMuxVideo(muxVideos.frizze2),
+    ...getMuxVideo(muxVideos.frizze2, 1),
+
+    // ⚠️ PROVISORIO: verificar que este IMG corresponda a Frizze 2
+    fallbackVideo: '/videos/fallback/IMG_2329_2.mp4',
+
     orientation: 'portrait',
     year: '2026',
     featured: false,
   },
+
   {
     id: '4',
     slug: 'kia-tasman',
@@ -46,10 +55,12 @@ export const works: Work[] = [
     category: 'Commercials',
     description: 'Creative Direction · AI Production',
     ...getMuxVideo(muxVideos.kia),
+    fallbackVideo: '/videos/fallback/spot-KIA-Tasman_2.mp4',
     orientation: 'landscape',
     year: '2026',
     featured: false,
   },
+
   {
     id: '5',
     slug: 'adn',
@@ -58,10 +69,12 @@ export const works: Work[] = [
     category: 'Fashion Film',
     description: 'Art Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.adn),
+    fallbackVideo: '/videos/fallback/ADN.mp4',
     orientation: 'landscape',
     year: '2026',
     featured: false,
   },
+
   {
     id: '6',
     slug: 'Frizze',
@@ -70,22 +83,30 @@ export const works: Work[] = [
     category: 'Social & Digital',
     description: 'Creative Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.frizze3),
+
+    // ⚠️ PROVISORIO: verificar que este IMG corresponda a Frizze 3
+    fallbackVideo: '/videos/fallback/IMG_2327_2.mp4',
+
     orientation: 'portrait',
     year: '2026',
     featured: false,
   },
+
   {
     id: '7',
     slug: 'crunch-fantasia',
     title: 'Product Launch',
     client: 'Crunch',
     category: 'Commercials',
-    description: 'Brand Direction · Art Direction · AI Production · Post-Production',
+    description:
+      'Brand Direction · Art Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.crunch),
+    fallbackVideo: '/videos/fallback/crunch-fantasia1.mp4',
     orientation: 'landscape',
     year: '2026',
     featured: false,
   },
+
   {
     id: '8',
     slug: 'Frizze',
@@ -94,10 +115,15 @@ export const works: Work[] = [
     category: 'Social & Digital',
     description: 'Creative Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.frizze4),
+
+    // ⚠️ PROVISORIO: verificar que este IMG corresponda a Frizze 4
+    fallbackVideo: '/videos/fallback/IMG_2328_2.mp4',
+
     orientation: 'portrait',
     year: '2026',
     featured: false,
   },
+
   {
     id: '9',
     slug: 'sur-content',
@@ -106,10 +132,12 @@ export const works: Work[] = [
     category: 'Commercials',
     description: 'Brand Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.sur),
+    fallbackVideo: '/videos/fallback/SUR_1.mp4',
     orientation: 'landscape',
     year: '2026',
     featured: false,
   },
+
   {
     id: '10',
     slug: 'GO!',
@@ -118,10 +146,12 @@ export const works: Work[] = [
     category: 'Social & Digital',
     description: 'Creative Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.go),
+    fallbackVideo: '/videos/fallback/Go-Fitness_2.mp4',
     orientation: 'portrait',
     year: '2026',
     featured: false,
   },
+
   {
     id: '11',
     slug: 'un-viaje-de-pasion',
@@ -130,34 +160,15 @@ export const works: Work[] = [
     category: 'Narrative Films',
     description: 'Creative Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.mundial),
-    orientation: 'landscape',
-    year: '2026',
-    featured: false,
-  },
-  {
-    id: '12',
-    slug: 'ugc-avatars',
-    title: 'Avatars IA',
-    client: 'UGC',
-    category: 'Social & Digital',
-    description: 'AI Production · Post-Production',
-    ...getMuxVideo(muxVideos.ugc),
+
+    // ⚠️ PROVISORIO: verificar que este IMG sea "Un viaje de Pasión"
+    fallbackVideo: '/videos/fallback/IMG_2370_1.mp4',
+
     orientation: 'portrait',
     year: '2026',
     featured: false,
   },
-  {
-    id: '13',
-    slug: 'gravity-shifts',
-    title: 'Experimental Film',
-    client: 'Gravity Shifts',
-    category: 'Narrative Films',
-    description: 'Creative Direction · AI Production · Post-Production',
-    ...getMuxVideo(muxVideos.gravity),
-    orientation: 'landscape',
-    year: '2026',
-    featured: false,
-  },
+
   {
     id: '14',
     slug: 'sour-maison',
@@ -166,30 +177,26 @@ export const works: Work[] = [
     category: 'Fashion Film',
     description: 'Art Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.sour),
+    fallbackVideo: '/videos/fallback/sour-maison.mp4',
     orientation: 'portrait',
     year: '2026',
     featured: false,
   },
+
   {
     id: '15',
     slug: 'la-esquinita',
     title: 'Fashion Film',
     client: 'LA ESQUINITA',
     category: 'Experiences',
-    description: 'Cultural Events · Art Curation · Technology · Creative Production',
+    description:
+      'Cultural Events · Art Curation · Technology · Creative Production',
     ...getMuxVideo(muxVideos.esquinita),
+
+    // ⚠️ Falta identificar/agregar el MP4 correspondiente a La Esquinita
+
     orientation: 'portrait',
     year: '2026',
     featured: false,
   },
 ];
-
-// 🔥 DEBUG: Verify all works have video and poster
-if (typeof window !== 'undefined') {
-  console.log('📦 Works data loaded:', {
-    total: works.length,
-    sample: works[0],
-    allHaveVideo: works.every(w => !!w.video),
-    allHavePoster: works.every(w => !!w.poster),
-  });
-}

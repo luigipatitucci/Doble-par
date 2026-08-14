@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { Work } from '@/types/work';
-import { setupHls, isHlsVideo } from '@/lib/hlsHelper';
+import { SafeVideo } from '@/components/ui/SafeVideo';
 import styles from './ProjectCard.module.css';
 
 interface ProjectCardProps {
@@ -20,43 +20,24 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   onClick,
   previewMode = 'static',
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsCleanupRef = useRef<(() => void) | null>(null);
-
-  // 🔥 Setup HLS if needed
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const isHls = isHlsVideo(work.video);
-    
-    if (isHls) {
-      hlsCleanupRef.current = setupHls(video, work.video, {
-        startLevel: 2,
-        onError: (error) => {
-          console.error(`HLS error for work ID ${work.id}:`, error);
-        },
-      });
-    } else {
-      // Regular MP4 - set source directly
-      video.src = work.video;
-    }
-
-    return () => {
-      if (hlsCleanupRef.current) {
-        hlsCleanupRef.current();
-        hlsCleanupRef.current = null;
-      }
-    };
-  }, [work.video, work.id]);
 
   const handleMouseEnter = () => {
+    setIsHovered(true);
+    
+    // Only play on hover for hover preview mode
     if (previewMode === 'hover' && videoRef.current) {
-      videoRef.current.play();
+      videoRef.current.play().catch(() => {
+        // Ignore autoplay errors
+      });
     }
   };
 
   const handleMouseLeave = () => {
+    setIsHovered(false);
+    
+    // Pause and reset for hover preview mode
     if (previewMode === 'hover' && videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
@@ -65,35 +46,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const cardContent = (
     <div className={styles.mediaContainer}>
-      <video
+      <SafeVideo
         ref={videoRef}
+        muxPlaybackId={work.muxPlaybackId}
+        fallbackVideo={work.fallbackVideo}
+        poster={work.poster}
         className={styles.video}
         muted
         loop={previewMode === 'hover'}
+        autoPlay={previewMode === 'static'}
         playsInline
-        preload="metadata"
-        poster={work.poster}
-        aria-label={`Video of ${work.title} - ${work.description}`}
-        onLoadedMetadata={(event) => {
-          const video = event.currentTarget;
-
-          if (previewMode === 'static' && video.duration > 1) {
-            video.currentTime = 1;
-          }
-        }}
-        onSeeked={(event) => {
-          if (previewMode === 'static') {
-            event.currentTarget.pause();
-          }
-        }}
-        onError={(event) => {
-          console.error(
-            `Video load error for work ID ${work.id} (${work.title}):`,
-            work.video,
-          );
-
-          console.error('Error details:', event);
-        }}
+        controls={false}
+        startTime={previewMode === 'static' ? 1 : undefined}
       />
 
 

@@ -7,7 +7,7 @@ export const AboutHero: React.FC = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>Studio</h1>
         <p className={styles.subtitle}>
-          We turn ideas into coexisting universes
+          We turn ideas into living worlds
         </p>
       </div>
     </section>

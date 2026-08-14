@@ -4,31 +4,31 @@ import styles from './PhilosophySection.module.css';
 export const PhilosophySection: React.FC = () => {
   const philosophies = [
     {
-      title: 'Film & Visual',
+      title: 'FILM & VISUAL',
       description:
-        'Cinematic content, powered by AI and live-action — built to move across every format.',
+        'Cinematic content combining live action, audiovisual craft, and AI — created to move across every format.',
     },
     {
-      title: 'Experiences',
+      title: 'EXPERIENCES',
       description:
-        'Brand activations and immersive spaces designed to turn audiences into community.',
+        'Brand activations and immersive spaces designed to turn audiences into communities.',
     },
     {
-      title: 'Branding & Narrative',
+      title: 'BRANDING, CAMPAIGNS & NARRATIVE',
       description:
-        'One brand story, told coherently — across every platform, every format, every touchpoint.',
+        'Creative direction, concepts, and campaigns that shape one coherent brand story across every platform and touchpoint.',
     },
     {
-      title: 'Technology',
+      title: 'TECHNOLOGY',
       description:
-        'AI and emerging tech, applied with strategy — not novelty for its own sake.',
+        'AI and emerging technologies applied with purpose and strategy — never for novelty’s sake.',
     },
   ];
 
   return (
     <section className={styles.philosophy}>
       <div className={styles.container}>
-        <h2 className={styles.title}>How We Work</h2>
+        <h2 className={styles.title}>WHAT WE DO</h2>
         
         <div className={styles.grid}>
           {philosophies.map((item, index) => (

@@ -16,7 +16,7 @@ export const muxVideos = {
   esquinita: "4hssremYBZQHLPFLOy02A6b8Ionu02tJEi3Dj5Rv01jAvE"
 };
 
-export const getMuxVideo = (id: string) => ({
-  video: `https://stream.mux.com/${id}.m3u8`,
-  poster: `https://image.mux.com/${id}/thumbnail.jpg?time=0.1`,
+export const getMuxVideo = (id: string, posterTime = 0.1) => ({
+  muxPlaybackId: id,
+  poster: `https://image.mux.com/${id}/thumbnail.jpg?time=${posterTime}`,
 });
