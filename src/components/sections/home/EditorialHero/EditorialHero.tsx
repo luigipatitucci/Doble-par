@@ -20,7 +20,7 @@ export const EditorialHero: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !isReady) return;
 
     // Importar ScrollTrigger dinámicamente solo en el cliente
     import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
@@ -41,21 +41,7 @@ export const EditorialHero: React.FC = () => {
       // Timeline de entrada
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // 1. Video
-      tl.fromTo(
-        video,
-        {
-          opacity: 0,
-          scale: 1.05,
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1.4,
-        }
-      );
-
-      // 2. Label
+      // 1. Label (el video ya está visible gracias al CSS)
       tl.fromTo(
         label,
         {
@@ -67,10 +53,25 @@ export const EditorialHero: React.FC = () => {
           y: 0,
           duration: 0.8,
         },
-        '-=0.8'
+        '+=0.3'
       );
 
-      // 3. Primera línea del claim
+      // 1. Label (el video ya está visible gracias al CSS)
+      tl.fromTo(
+        label,
+        {
+          opacity: 0,
+          y: 20,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+        },
+        '+=0.3'
+      );
+
+      // 2. Primera línea del claim
       tl.fromTo(
         claimLine1,
         {
@@ -82,10 +83,10 @@ export const EditorialHero: React.FC = () => {
           y: 0,
           duration: 0.9,
         },
-        '-=0.6'
+        '-=0.4'
       );
 
-      // 4. Segunda línea del claim
+      // 3. Segunda línea del claim
       tl.fromTo(
         claimLine2,
         {
@@ -100,7 +101,7 @@ export const EditorialHero: React.FC = () => {
         '-=0.7'
       );
 
-      // 5. Descripción
+      // 4. Descripción
       tl.fromTo(
         description,
         {
@@ -113,7 +114,7 @@ export const EditorialHero: React.FC = () => {
         '-=0.5'
       );
 
-      // 6. CTA
+      // 5. CTA
       tl.fromTo(
         cta,
         {
@@ -159,7 +160,7 @@ export const EditorialHero: React.FC = () => {
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     });
-  }, []);
+  }, [isReady]);
 
   return (
     <section ref={heroRef} className={styles.hero}>
@@ -173,7 +174,7 @@ export const EditorialHero: React.FC = () => {
           muted
           playsInline
           controls={false}
-          onLoadedData={() => setIsReady(true)}
+          onVideoReady={() => setIsReady(true)}
         />
       </div>
 

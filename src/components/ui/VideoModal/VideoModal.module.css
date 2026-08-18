@@ -263,70 +263,6 @@
 }
 
 
-/* 🔥 MUTE INDICATOR */
-.muteIndicator {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 12px 18px;
-
-  background: rgba(8, 8, 8, 0.75);
-  backdrop-filter: blur(8px);
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-
-  color: white;
-
-  font-size: 0.9rem;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  z-index: 10;
-
-  transition: all 0.3s ease;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-
-.muteIndicator:hover {
-  background: rgba(8, 8, 8, 0.9);
-  border-color: rgba(255, 255, 255, 0.2);
-
-  transform: scale(1.05);
-}
-
-
-.muteIndicator svg {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-
-.muteIndicator span {
-  white-space: nowrap;
-}
-
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.7;
-  }
-}
-
-
 /* 🔥 PLAY BUTTON OVERLAY */
 .playButton {
   position: absolute;
@@ -432,28 +368,6 @@
   .counter {
     bottom: 16px;
     right: 12px;
-  }
-
-
-  .muteIndicator {
-    top: 50%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    font-size: 0.85rem;
-    padding: 10px 16px;
-  }
-
-
-  .muteIndicator:hover {
-    transform: translate(-50%, -50%) scale(1.05);
-  }
-
-
-  .muteIndicator svg {
-    width: 18px;
-    height: 18px;
   }
 
   /* 🔥 Ajustar posición del botón cerrar en mobile */

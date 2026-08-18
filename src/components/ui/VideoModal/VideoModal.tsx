@@ -26,7 +26,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = React.useState(true);
   const [isMounted, setIsMounted] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
 
   const currentWork = works[currentIndex];
 
@@ -71,11 +70,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
     setCurrentIndex((currentIndex - 1 + works.length) % works.length);
   };
 
-  // Reset mute state when video changes
-  useEffect(() => {
-    setIsMuted(true);
-  }, [currentIndex]);
-
   // Manejar tecla ESC
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -113,16 +107,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
       document.removeEventListener('keydown', handleArrows);
     };
   }, [isOpen, currentIndex]);
-
-  // Toggle mute/unmute
-  const handleToggleMute = () => {
-    if (videoRef.current) {
-      const newMutedState = !isMuted;
-      videoRef.current.muted = newMutedState;
-      videoRef.current.volume = newMutedState ? 0 : 1;
-      setIsMuted(newMutedState);
-    }
-  };
 
   // Click fuera del video para cerrar
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -257,35 +241,6 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           <div className={styles.counter}>
             {currentIndex + 1} / {works.length}
           </div>
-
-          {/* Mute indicator */}
-          {isMuted && (
-            <button
-              className={styles.muteIndicator}
-              onClick={handleToggleMute}
-              aria-label="Activar sonido"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07M18.36 5.64a9 9 0 0 1 0 12.73"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <line
-                  x1="1"
-                  y1="1"
-                  x2="23"
-                  y2="23"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span>Tap to unmute</span>
-            </button>
-          )}
         </div>
       </div>
 

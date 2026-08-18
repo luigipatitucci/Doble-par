@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Work } from '@/types/work';
 import { SafeVideo } from '@/components/ui/SafeVideo';
@@ -21,33 +21,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   previewMode = 'static',
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    
-    // Only play on hover for hover preview mode
-    if (previewMode === 'hover' && videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Ignore autoplay errors
-      });
-    }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    
-    // Pause and reset for hover preview mode
-    if (previewMode === 'hover' && videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   };
 
   const cardContent = (
     <div className={styles.mediaContainer}>
       <SafeVideo
-        ref={videoRef}
         muxPlaybackId={work.muxPlaybackId}
         fallbackVideo={work.fallbackVideo}
         poster={work.poster}
@@ -57,6 +42,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         autoPlay={previewMode === 'static'}
         playsInline
         controls={false}
+        playing={previewMode === 'hover' ? isHovered : undefined}
         startTime={previewMode === 'static' ? 1 : undefined}
       />
 

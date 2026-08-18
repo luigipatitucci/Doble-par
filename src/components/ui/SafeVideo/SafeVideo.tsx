@@ -25,8 +25,10 @@ interface SafeVideoProps {
   playsInline?: boolean;
   controls?: boolean;
   startTime?: number;
+  playing?: boolean;
   onLoadedData?: () => void;
   onError?: () => void;
+  onVideoReady?: () => void;
 }
 
 export const SafeVideo = forwardRef<HTMLVideoElement, SafeVideoProps>(
@@ -42,8 +44,10 @@ export const SafeVideo = forwardRef<HTMLVideoElement, SafeVideoProps>(
       playsInline = true,
       controls = false,
       startTime,
+      playing,
       onLoadedData,
       onError,
+      onVideoReady,
     },
     ref
   ) => {
@@ -74,7 +78,7 @@ export const SafeVideo = forwardRef<HTMLVideoElement, SafeVideoProps>(
       ref,
       () => {
         if (source === 'mux' && muxRef.current?.media) {
-          return muxRef.current.media;
+          return muxRef.current.media as HTMLVideoElement;
         }
 
         if (source === 'fallback' && fallbackRef.current) {
@@ -116,6 +120,50 @@ export const SafeVideo = forwardRef<HTMLVideoElement, SafeVideoProps>(
 
       hasErrorOccurred.current = false;
     }, [muxPlaybackId, FORCE_VIDEO_FALLBACK, fallbackVideo]);
+
+    /**
+     * Control de reproducción mediante prop `playing`
+     * 
+     * Cuando el componente padre pasa playing={true/false},
+     * SafeVideo maneja play/pause internamente sin que el padre
+     * necesite acceder al elemento de video interno.
+     */
+    useEffect(() => {
+      // Solo controlar reproducción si la prop `playing` fue proporcionada
+      if (playing === undefined) return;
+
+      const performPlayPause = async () => {
+        let videoElement: HTMLVideoElement | null = null;
+
+        // Obtener el elemento de video según la fuente actual
+        if (source === 'mux' && muxRef.current?.media) {
+          videoElement = muxRef.current.media as HTMLVideoElement;
+        } else if (source === 'fallback' && fallbackRef.current) {
+          videoElement = fallbackRef.current;
+        }
+
+        if (!videoElement) return;
+
+        try {
+          if (playing) {
+            // Reproducir
+            await videoElement.play();
+          } else {
+            // Pausar y resetear al inicio para previews
+            videoElement.pause();
+            if (!controls) {
+              // Solo resetear en previews (sin controles)
+              videoElement.currentTime = 0;
+            }
+          }
+        } catch (error) {
+          // Capturar errores de autoplay silenciosamente
+          console.debug('Play/pause error:', error);
+        }
+      };
+
+      performPlayPause();
+    }, [playing, source, controls]);
 
     /**
      * Error de Mux
@@ -165,6 +213,19 @@ export const SafeVideo = forwardRef<HTMLVideoElement, SafeVideoProps>(
     };
 
     /**
+     * Handlers para notificar cuando el video está realmente reproduciendo.
+     * Esto previene el flash negro al asegurar que el video tiene contenido
+     * visible antes de mostrarlo.
+     */
+    const handleMuxPlaying = () => {
+      onVideoReady?.();
+    };
+
+    const handleFallbackPlaying = () => {
+      onVideoReady?.();
+    };
+
+    /**
      * Estilos de MuxPlayer.
      *
      * IMPORTANTE:
@@ -194,37 +255,56 @@ export const SafeVideo = forwardRef<HTMLVideoElement, SafeVideoProps>(
     if (source === 'mux') {
       return (
         <MuxPlayer
-  ref={muxRef}
-  playbackId={muxPlaybackId}
-  streamType="on-demand"
-  poster={poster}
-  muted={muted}
-  loop={loop}
-  autoPlay={autoPlay}
-  startTime={startTime}
-  playsInline={playsInline}
-  className={className}
-  onError={handleMuxError}
-  onLoadedData={handleMuxLoadedData}
-  style={
-    {
-      width: '100%',
-      height: '100%',
-      display: 'block',
+          ref={muxRef}
+          playbackId={muxPlaybackId}
+          streamType="on-demand"
+          poster={poster}
+          muted={muted}
+          loop={loop}
+          autoPlay={autoPlay}
+          startTime={startTime}
+          playsInline={playsInline}
+          className={className}
+          onError={handleMuxError}
+          onLoadedData={handleMuxLoadedData}
+          onPlaying={handleMuxPlaying}
+          style={
+            {
+              width: '100%',
+              height: '100%',
+              display: 'block',
 
-      // Hace que el VIDEO y el POSTER llenen el reproductor
-      '--media-object-fit': 'cover',
-      '--media-object-position': 'center',
+              // Hace que el VIDEO y el POSTER llenen el reproductor
+              '--media-object-fit': 'cover',
+              '--media-object-position': 'center',
 
-      // Ocultar UI fuera del modal
-      ...(controls
-        ? {}
-        : {
-            '--controls': 'none',
-          }),
-    } as React.CSSProperties
-  }
-/>
+              // Ocultar completamente Media Chrome UI cuando controls === false
+              ...(controls
+                ? {}
+                : {
+                    '--controls': 'none',
+                    '--media-control-display': 'none',
+                    '--media-control-background': 'transparent',
+                    '--media-gesture-display': 'none',
+                    '--media-live-button-display': 'none',
+                    '--media-pip-button-display': 'none',
+                    '--media-fullscreen-button-display': 'none',
+                    '--media-volume-range-display': 'none',
+                    '--media-mute-button-display': 'none',
+                    '--media-play-button-display': 'none',
+                    '--media-time-display-display': 'none',
+                    '--media-duration-display-display': 'none',
+                    '--media-seek-backward-button-display': 'none',
+                    '--media-seek-forward-button-display': 'none',
+                    '--media-playback-rate-button-display': 'none',
+                    '--media-captions-button-display': 'none',
+                    '--media-airplay-button-display': 'none',
+                    '--media-chromecast-button-display': 'none',
+                    pointerEvents: 'none',
+                  }),
+            } as React.CSSProperties
+          }
+        />
       );
     }
 
@@ -235,26 +315,28 @@ export const SafeVideo = forwardRef<HTMLVideoElement, SafeVideoProps>(
      */
     if (source === 'fallback' && fallbackVideo) {
       return (
-       <video
-  ref={fallbackRef}
-  src={fallbackVideo}
-  poster={poster}
-  muted={muted}
-  loop={loop}
-  autoPlay={autoPlay}
-  playsInline={playsInline}
-  controls={controls}
-  className={className}
-  onError={handleFallbackError}
-  onLoadedData={handleFallbackLoadedData}
-  style={{
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    objectPosition: 'center',
-    display: 'block',
-  }}
-/>
+        <video
+          ref={fallbackRef}
+          src={fallbackVideo}
+          poster={poster}
+          muted={muted}
+          loop={loop}
+          autoPlay={autoPlay}
+          playsInline={playsInline}
+          controls={controls}
+          className={className}
+          onError={handleFallbackError}
+          onLoadedData={handleFallbackLoadedData}
+          onPlaying={handleFallbackPlaying}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            display: 'block',
+            ...(controls ? {} : { pointerEvents: 'none' }),
+          }}
+        />
       );
     }
 

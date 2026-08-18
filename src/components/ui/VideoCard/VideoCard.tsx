@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Work } from '@/types/work';
 import { SafeVideo } from '@/components/ui/SafeVideo';
 import styles from './VideoCard.module.css';
@@ -13,23 +13,13 @@ interface VideoCardProps {
 export const VideoCard: React.FC<VideoCardProps> = ({ work, priority = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Ignore autoplay errors
-      });
-    }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   };
 
   return (
@@ -46,7 +36,6 @@ export const VideoCard: React.FC<VideoCardProps> = ({ work, priority = false }) 
         )}
         
         <SafeVideo
-          ref={videoRef}
           muxPlaybackId={work.muxPlaybackId}
           fallbackVideo={work.fallbackVideo}
           poster={work.poster}
@@ -56,6 +45,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ work, priority = false }) 
           autoPlay={false}
           playsInline
           controls={false}
+          playing={isHovered}
           onLoadedData={() => setIsLoaded(true)}
           onError={() => setIsLoaded(true)}
         />
