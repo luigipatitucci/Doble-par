@@ -51,8 +51,12 @@ export const HomeSelectedWork: React.FC = () => {
   // DATA
   // =========================
 
-  // Only show first 11 works on home (exclude new works from carousel page)
-  const homeWorks = works.slice(0, 11);
+  // Explicit editorial selection for Home — independent of workGroup/array order,
+  // kept in sync with the original curated composition.
+  const HOME_WORK_IDS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+  const homeWorks = HOME_WORK_IDS
+    .map(id => works.find(w => w.id === id))
+    .filter((w): w is (typeof works)[number] => Boolean(w));
 
   const featured = homeWorks.find(w => w.featured);
   const portraits = homeWorks.filter(w => w.orientation === 'portrait' && !w.featured);

@@ -2,6 +2,10 @@ import { Work } from '@/types/work';
 import { muxVideos, getMuxVideo } from '../lib/muxVideos';
 
 export const works: Work[] = [
+  // =========================================================
+  // NEW WORK — DOBLEPAR
+  // =========================================================
+
   {
     id: '1',
     slug: 'mon-cheri',
@@ -14,51 +18,7 @@ export const works: Work[] = [
     orientation: 'landscape',
     year: '2026',
     featured: true,
-  },
-
-  {
-    id: '2',
-    slug: 'frizze-pasion',
-    title: 'Social Campaign',
-    client: 'Frizze',
-    category: 'Social & Digital',
-    description: 'Creative Direction · AI Production · Post-Production',
-    ...getMuxVideo(muxVideos.frizze1),
-    fallbackVideo: '/videos/fallback/frizze-pasion.mp4',
-    orientation: 'portrait',
-    year: '2026',
-    featured: false,
-  },
-
-  {
-    id: '3',
-    slug: 'frizze-pasion',
-    title: 'Social Campaign',
-    client: 'Frizze',
-    category: 'Social & Digital',
-    description: 'Creative Direction · AI Production · Post-Production',
-    ...getMuxVideo(muxVideos.frizze2, 1),
-
-    // ⚠️ PROVISORIO: verificar que este IMG corresponda a Frizze 2
-    fallbackVideo: '/videos/fallback/IMG_2329_2.mp4',
-
-    orientation: 'portrait',
-    year: '2026',
-    featured: false,
-  },
-
-  {
-    id: '4',
-    slug: 'kia-tasman',
-    title: 'Launch Campaign',
-    client: 'KIA Tasman',
-    category: 'Commercials',
-    description: 'Creative Direction · AI Production',
-    ...getMuxVideo(muxVideos.kia),
-    fallbackVideo: '/videos/fallback/spot-KIA-Tasman_2.mp4',
-    orientation: 'landscape',
-    year: '2026',
-    featured: false,
+    workGroup: 'New Work',
   },
 
   {
@@ -73,23 +33,7 @@ export const works: Work[] = [
     orientation: 'landscape',
     year: '2026',
     featured: false,
-  },
-
-  {
-    id: '6',
-    slug: 'Frizze',
-    title: 'Social Campaign',
-    client: 'Frizze',
-    category: 'Social & Digital',
-    description: 'Creative Direction · AI Production · Post-Production',
-    ...getMuxVideo(muxVideos.frizze3),
-
-    // ⚠️ PROVISORIO: verificar que este IMG corresponda a Frizze 3
-    fallbackVideo: '/videos/fallback/IMG_2327_2.mp4',
-
-    orientation: 'portrait',
-    year: '2026',
-    featured: false,
+    workGroup: 'New Work',
   },
 
   {
@@ -105,23 +49,7 @@ export const works: Work[] = [
     orientation: 'landscape',
     year: '2026',
     featured: false,
-  },
-
-  {
-    id: '8',
-    slug: 'Frizze',
-    title: 'Social Campaign',
-    client: 'Frizze',
-    category: 'Social & Digital',
-    description: 'Creative Direction · AI Production · Post-Production',
-    ...getMuxVideo(muxVideos.frizze4),
-
-    // ⚠️ PROVISORIO: verificar que este IMG corresponda a Frizze 4
-    fallbackVideo: '/videos/fallback/IMG_2328_2.mp4',
-
-    orientation: 'portrait',
-    year: '2026',
-    featured: false,
+    workGroup: 'New Work',
   },
 
   {
@@ -136,11 +64,12 @@ export const works: Work[] = [
     orientation: 'landscape',
     year: '2026',
     featured: false,
+    workGroup: 'New Work',
   },
 
   {
     id: '10',
-    slug: 'GO!',
+    slug: 'go',
     title: 'Social Campaign',
     client: 'GO!',
     category: 'Social & Digital',
@@ -150,6 +79,7 @@ export const works: Work[] = [
     orientation: 'portrait',
     year: '2026',
     featured: false,
+    workGroup: 'New Work',
   },
 
   {
@@ -160,13 +90,11 @@ export const works: Work[] = [
     category: 'Narrative Films',
     description: 'Creative Direction · AI Production · Post-Production',
     ...getMuxVideo(muxVideos.mundial),
-
-    // ⚠️ PROVISORIO: verificar que este IMG sea "Un viaje de Pasión"
     fallbackVideo: '/videos/fallback/IMG_2370_1.mp4',
-
     orientation: 'portrait',
     year: '2026',
     featured: false,
+    workGroup: 'New Work',
   },
 
   {
@@ -181,6 +109,7 @@ export const works: Work[] = [
     orientation: 'portrait',
     year: '2026',
     featured: false,
+    workGroup: 'New Work',
   },
 
   {
@@ -192,11 +121,156 @@ export const works: Work[] = [
     description:
       'Cultural Events · Art Curation · Technology · Creative Production',
     ...getMuxVideo(muxVideos.esquinita),
-
-    // ⚠️ Falta identificar/agregar el MP4 correspondiente a La Esquinita
-
     orientation: 'portrait',
     year: '2026',
     featured: false,
+    workGroup: 'New Work',
+  },
+
+  // =========================================================
+  // BRANDS & AGENCIES
+  // =========================================================
+
+  // FRIZZE
+
+  {
+    id: '2',
+    slug: 'frizze-pasion-1',
+    title: 'Social Campaign',
+    client: 'Frizze',
+    category: 'Social & Digital',
+    description: 'Creative Direction · AI Production · Post-Production',
+    ...getMuxVideo(muxVideos.frizze1),
+    fallbackVideo: '/videos/fallback/frizze-pasion.mp4',
+    orientation: 'portrait',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
+  },
+
+  {
+    id: '3',
+    slug: 'frizze-pasion-2',
+    title: 'Social Campaign',
+    client: 'Frizze',
+    category: 'Social & Digital',
+    description: 'Creative Direction · AI Production · Post-Production',
+    ...getMuxVideo(muxVideos.frizze2, 1),
+    fallbackVideo: '/videos/fallback/IMG_2329_2.mp4',
+    orientation: 'portrait',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
+  },
+
+  {
+    id: '6',
+    slug: 'frizze-pasion-3',
+    title: 'Social Campaign',
+    client: 'Frizze',
+    category: 'Social & Digital',
+    description: 'Creative Direction · AI Production · Post-Production',
+    ...getMuxVideo(muxVideos.frizze3),
+    fallbackVideo: '/videos/fallback/IMG_2327_2.mp4',
+    orientation: 'portrait',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
+  },
+
+  {
+    id: '8',
+    slug: 'frizze-pasion-4',
+    title: 'Social Campaign',
+    client: 'Frizze',
+    category: 'Social & Digital',
+    description: 'Creative Direction · AI Production · Post-Production',
+    ...getMuxVideo(muxVideos.frizze4),
+    fallbackVideo: '/videos/fallback/IMG_2328_2.mp4',
+    orientation: 'portrait',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
+  },
+
+  // KIA
+
+  {
+    id: '4',
+    slug: 'kia-tasman',
+    title: 'Launch Campaign',
+    client: 'KIA Tasman',
+    category: 'Commercials',
+    description: 'Creative Direction · AI Production',
+    ...getMuxVideo(muxVideos.kia),
+    fallbackVideo: '/videos/fallback/spot-KIA-Tasman_2.mp4',
+    orientation: 'landscape',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
+  },
+
+  // =========================================================
+  // NEW — OTHER BRANDS & AGENCIES
+  // =========================================================
+
+  {
+    id: '16',
+    slug: 'boston-marathon-bank-of-america',
+    title: 'Boston Marathon',
+    client: 'Bank of America × Leo Burnett',
+    category: 'Experiences',
+    description:
+      'Managed the agency relationship and coordinated the delivery of multiple interactive mapping experiences across the Boston Marathon.',
+    ...getMuxVideo(muxVideos.bostonMarathon),
+    orientation: 'landscape',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
+  },
+
+  {
+    id: '17',
+    slug: 'custom-ads-mercado-libre',
+    title: 'Custom Ads',
+    client: 'Mercado Libre × GUT',
+    category: 'Experiences',
+    description:
+      'Turned the agency’s AI-powered billboard concept into an actionable production plan, aligning creative and tech teams through launch.',
+    ...getMuxVideo(muxVideos.customAds),
+    orientation: 'landscape',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
+  },
+
+  {
+    id: '18',
+    slug: 'corona-suntags',
+    title: 'Corona Suntags',
+    client: 'Corona Cero × GREY',
+    category: 'Experiences',
+    description:
+      'Coordinated the global rollout of a location-based outdoor activation, managing sun-tracking, site planning, partners and approvals.',
+    ...getMuxVideo(muxVideos.coronaSuntags),
+    orientation: 'landscape',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
+  },
+
+  {
+    id: '19',
+    slug: 'foe-to-friend-sanofi',
+    title: 'Foe to Friend',
+    client: 'Sanofi × HAVAS',
+    category: 'Experiences',
+    description:
+      'Led the production of four large-scale inflatable sculptures for Sanofi’s AAD experience, managing fabrication feedback, approvals and delivery.',
+    ...getMuxVideo(muxVideos.foeToFriend),
+    orientation: 'landscape',
+    year: '2026',
+    featured: false,
+    workGroup: 'Brands & Agencies',
   },
 ];

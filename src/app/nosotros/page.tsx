@@ -5,7 +5,7 @@ import { AboutSection } from '@/components/sections/nosotros/AboutSection/AboutS
 import { PhilosophySection } from '@/components/sections/nosotros/PhilosophySection/PhilosophySection';
 
 export const metadata = {
-  title: 'Studio | DOBLEPAR',
+  title: 'About Us | DOBLEPAR',
   description:
     'We turn ideas into coexisting universes. Learn about our philosophy, manifesto and way of working.',
 };

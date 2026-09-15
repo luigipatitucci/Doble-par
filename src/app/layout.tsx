@@ -10,11 +10,11 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'DOBLEPAR | Creative & Audiovisual Studio',
+  title: 'DOBLEPAR | Creative Production Company',
   description:
-    'We turn ideas into coexisting universes. Creative and audiovisual studio specialized in visual content with artificial intelligence.',
+    'We turn ideas into coexisting universes. Creative production company specialized in visual content with artificial intelligence.',
   keywords: [
-    'creative studio',
+    'creative production company',
     'audiovisual',
     'artificial intelligence',
     'AI',
@@ -31,16 +31,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://doblepar.com',
-    title: 'DOBLEPAR | Creative & Audiovisual Studio',
+    title: 'DOBLEPAR | Creative Production Company',
     description:
-      'We turn ideas into coexisting universes. Creative and audiovisual studio specialized in visual content with artificial intelligence.',
+      'We turn ideas into coexisting universes. Creative production company specialized in visual content with artificial intelligence.',
     siteName: 'DOBLEPAR',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DOBLEPAR | Creative & Audiovisual Studio',
+    title: 'DOBLEPAR | Creative Production Company',
     description:
-      'We turn ideas into coexisting universes. Creative and audiovisual studio specialized in visual content with artificial intelligence.',
+      'We turn ideas into coexisting universes. Creative production company specialized in visual content with artificial intelligence.',
   },
   robots: {
     index: true,

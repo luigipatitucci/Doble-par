@@ -5,7 +5,7 @@ export const AboutHero: React.FC = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Studio</h1>
+        <h1 className={styles.title}>About Us</h1>
         <p className={styles.subtitle}>
           We turn ideas into living worlds
         </p>

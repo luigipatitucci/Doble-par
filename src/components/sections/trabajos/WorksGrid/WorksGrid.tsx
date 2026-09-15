@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { works } from '@/data/works';
+import { WorkGroup } from '@/types/work';
 import { ProjectCard } from '@/components/ui/ProjectCard/ProjectCard';
 import { VideoModal } from '@/components/ui/VideoModal/VideoModal';
 import styles from './WorksGrid.module.css';
@@ -23,9 +24,15 @@ const FILTER_LABELS: Record<FilterCategory, string> = {
   'Narrative Films': 'Narrative Films',
 };
 
+const GROUP_LABELS: Record<WorkGroup, string> = {
+  'New Work': 'New Work',
+  'Brands & Agencies': 'Brands & Agencies',
+};
+
 export const WorksGrid: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeGroup, setActiveGroup] = useState<WorkGroup>('New Work');
   const [activeFilter, setActiveFilter] = useState<FilterCategory>('All');
 
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -39,10 +46,13 @@ export const WorksGrid: React.FC = () => {
   const startX = useRef(0);
   const scrollStart = useRef(0);
 
-  const filteredWorks =
-    activeFilter === 'All'
-      ? works
-      : works.filter(work => work.category === activeFilter);
+  const filteredWorks = works.filter(work => {
+    const matchesGroup = work.workGroup === activeGroup;
+    const matchesCategory =
+      activeFilter === 'All' || work.category === activeFilter;
+
+    return matchesGroup && matchesCategory;
+  });
 
   // 🔥 Scroll buttons
   const updateScrollButtons = () => {
@@ -75,7 +85,13 @@ export const WorksGrid: React.FC = () => {
       left: 0,
       behavior: 'smooth',
     });
-  }, [activeFilter]);
+  }, [activeFilter, activeGroup]);
+
+  const handleGroupChange = (group: WorkGroup) => {
+    setActiveGroup(group);
+    setActiveFilter('All');
+    setCurrentIndex(0);
+  };
 
   // 🔥 Navigation
   const handleScroll = (dir: 'left' | 'right') => {
@@ -127,6 +143,20 @@ export const WorksGrid: React.FC = () => {
 
         {/* FILTERS */}
         <div className={styles.filterWrapper}>
+          <div className={styles.groupFilters}>
+            {(Object.keys(GROUP_LABELS) as WorkGroup[]).map(group => (
+              <button
+                key={group}
+                className={`${styles.groupButton} ${
+                  activeGroup === group ? styles.active : ''
+                }`}
+                onClick={() => handleGroupChange(group)}
+              >
+                {GROUP_LABELS[group]}
+              </button>
+            ))}
+          </div>
+
           <div className={styles.filters}>
             {(Object.keys(FILTER_LABELS) as FilterCategory[]).map(filter => (
               <button

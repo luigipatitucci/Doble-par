@@ -8,7 +8,7 @@ import styles from './Navbar.module.css';
 
 const navigation = [
   { name: 'Work', href: '/trabajos' },
-  { name: 'Studio', href: '/nosotros' },
+  { name: 'About Us', href: '/nosotros' },
   { name: "Let's Talk", href: '/hablemos' },
 ];
 

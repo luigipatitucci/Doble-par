@@ -9,7 +9,7 @@ import styles from './Footer.module.css';
 const navigationLinks = [
   { name: 'Home', href: '/' },
   { name: 'Work', href: '/trabajos' },
-  { name: 'Studio', href: '/nosotros' },
+  { name: 'About Us', href: '/nosotros' },
   { name: "Let's Talk", href: '/hablemos' },
 ];
 
@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
               />
             </div>
             <p className={styles.description}>
-              Creative and audiovisual studio building distinctive visual universes through storytelling, creative direction, AI, and live-action production—across both physical and digital experiences.
+              Creative production company building distinctive visual universes through storytelling, creative direction, AI, and live-action production—across both physical and digital experiences.
             </p>
           </div>
 

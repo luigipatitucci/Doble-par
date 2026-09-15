@@ -13,7 +13,18 @@ export const muxVideos = {
   ugc: "bdksLCOEiQpCCjIDSdP02Ma34as6N02hsWeoCsYgWXnZI",
   gravity: "sECHGEapCjw021VsTVZYug02sN4MYe02UYJ4dPYv89W2Mg",
   sour: "VqVA9yNzB02KbTLX6MAUq01n2Prpm00L7XacSq8YFxWAvg",
-  esquinita: "4hssremYBZQHLPFLOy02A6b8Ionu02tJEi3Dj5Rv01jAvE"
+  esquinita: "4hssremYBZQHLPFLOy02A6b8Ionu02tJEi3Dj5Rv01jAvE",
+  foeToFriend:
+    'nXMxtfVyqvUUlEqQI02uWdHiiLmmyjQI4ItELbnwKAyk',
+
+  bostonMarathon:
+    'Qyn6Lakm3dKOzOksI02QOxs21600Acd01447QlgOkRJIM4',
+
+  coronaSuntags:
+    'vY2vOkAey2itXtF00TLF8yBwJL2ty02WVeoznDn016ANnE',
+
+  customAds:
+    'UtI2epuLD00CjaUjRZ8xunPQuZkZfMANU400C3PRR3gv4',
 };
 
 export const getMuxVideo = (id: string, posterTime = 0.1) => ({
