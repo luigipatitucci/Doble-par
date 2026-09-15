@@ -198,7 +198,7 @@ export const EditorialHero: React.FC = () => {
         </h1>
 
         <p ref={descriptionRef} className={styles.description}>
-          DOBLEPAR is a contemporary creative production company that transforms brand chaos into curated visual universes. Combining creative excellence with a fluid structure, we work across traditional formats and multiplatform experiences, specializing in creative direction, advertising, branding, integrated production, and campaign development. Through storytelling, technology, AI, and live action, we shape powerful concepts rooted in sensitivity, cultural identity, desire, and emotional memory.
+          DOBLEPAR is a contemporary creative production company that transforms brand chaos into curated visual universes. Combining creative excellence with a liquid structure, we work across traditional formats and multiplatform experiences, specializing in creative direction, advertising, branding, integrated production, and campaign development. Through storytelling, technology, AI, and live action, we shape powerful concepts rooted in sensitivity, cultural identity, desire, and emotional memory.
         </p>
 
         <a ref={ctaRef} href="#manifesto" className={styles.cta}>
